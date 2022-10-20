@@ -6,7 +6,7 @@ export const ProductsList = () => {
   return (
     <ProductsListWrapper>
       {data.map((product) => (
-        <Product product={product} />
+        <Product key={product.id} product={product} />
       ))}
     </ProductsListWrapper>
   );
