@@ -9,7 +9,8 @@ export const GlobalStyles = createGlobalStyle`
  }
 
  body {
-    font-family: Whitney, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;;
+    font-family: Whitney, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    position: relative;
  }
 
  button {

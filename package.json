@@ -12,6 +12,7 @@
     "@types/react": "^18.0.0",
     "@types/react-dom": "^18.0.0",
     "@types/react-router": "^5.1.19",
+    "@types/react-router-dom": "^5.3.3",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-redux": "^8.0.4",
@@ -48,6 +49,7 @@
   "devDependencies": {
     "@types/react-redux": "^7.1.24",
     "@types/redux": "^3.6.0",
-    "@types/styled-components": "^5.1.26"
+    "@types/styled-components": "^5.1.26",
+    "react-router-dom": "^6.4.2"
   }
 }

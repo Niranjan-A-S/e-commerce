@@ -1,19 +1,27 @@
+import { memo, useState } from "react";
 import styled from "styled-components";
+
 import { IProduct } from "../types";
 import { ProductCounter } from ".";
-import { useState } from "react";
 
 interface IProductProps {
   product: IProduct;
 }
 
-export const Product = (props: IProductProps) => {
-  const { product } = props;
-
+export const ProductItem = memo((props: IProductProps) => {
+  const [count, setCount] = useState<number>(0);
   const [checked, setChecked] = useState<boolean>(false);
 
+  const { product } = props;
+
+  const incrementCounter = () => {
+    product.count > count && setCount((prev) => prev + 1);
+  };
+
+  const decrementCounter = () => count > 0 && setCount((prev) => prev - 1);
+
   return (
-    <ProductsWrapper>
+    <ProductItemWrapper>
       <ProductInfo>
         <ProductImage src={product.image} alt={"product-image"} />
         <ProductName children={product.name} />
@@ -21,7 +29,11 @@ export const Product = (props: IProductProps) => {
         <ProductPrice>Rs.{product.price}</ProductPrice>
       </ProductInfo>
       <ProductTools>
-        <ProductCounter />
+        <ProductCounter
+          count={count}
+          incrementCount={incrementCounter}
+          decrementCount={decrementCounter}
+        />
         <ProductRemaining>
           <strong>{product.count}</strong> left
         </ProductRemaining>
@@ -37,11 +49,11 @@ export const Product = (props: IProductProps) => {
           />
         </ProductButton>
       </ProductTools>
-    </ProductsWrapper>
+    </ProductItemWrapper>
   );
-};
+});
 
-const ProductsWrapper = styled.div`
+const ProductItemWrapper = styled.div`
   border: 1px solid rgba(0, 0, 0, 0.2);
   background-color: #fff;
   padding: 10px;

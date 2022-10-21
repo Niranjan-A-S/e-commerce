@@ -1,16 +1,18 @@
-import { ChangeEventHandler } from "react";
+import { ChangeEventHandler, MouseEventHandler } from "react";
 import styled from "styled-components";
-import { SelectField } from "../components";
+import { SelectField } from ".";
 import { IOption } from "../types";
 
 interface INavbar {
   customerName: string;
   userNames: Array<IOption>;
   changeUser: ChangeEventHandler<HTMLSelectElement>;
+  showWishList: MouseEventHandler;
+  showCart: MouseEventHandler;
 }
 
 export const Navbar = (props: INavbar) => {
-  const { customerName, userNames, changeUser } = props;
+  const { customerName, userNames, changeUser, showWishList, showCart } = props;
 
   return (
     <NavbarWrapper>
@@ -25,18 +27,18 @@ export const Navbar = (props: INavbar) => {
       />
       <ProfileSelect options={userNames} onChange={changeUser} />
       <CustomerName>{customerName}</CustomerName>
-      <StyledButton>
+      <NavbarButton onClick={showWishList}>
         <Logo
           src={"https://cdn-icons-png.flaticon.com/512/1216/1216575.png"}
           alt=""
         />
-      </StyledButton>
-      <StyledButton>
+      </NavbarButton>
+      <NavbarButton onClick={showCart}>
         <Logo
           src={"https://cdn-icons-png.flaticon.com/512/649/649931.png"}
           alt="cart-logo"
         />
-      </StyledButton>
+      </NavbarButton>
     </NavbarWrapper>
   );
 };
@@ -66,7 +68,7 @@ const CustomerName = styled.strong`
   align-self: center;
 `;
 
-const StyledButton = styled.button`
+const NavbarButton = styled.button`
   width: fit-content;
   background-color: inherit;
   border: none;

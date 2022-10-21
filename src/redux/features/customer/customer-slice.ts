@@ -1,4 +1,4 @@
-import { ICustomer } from "./../../../types/types";
+import { ICustomer } from "../../../types/types";
 import { createSlice } from "@reduxjs/toolkit";
 
 export const initialState: Array<ICustomer> = [

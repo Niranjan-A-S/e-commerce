@@ -1,14 +1,23 @@
+import { memo, MouseEventHandler } from "react";
 import styled from "styled-components";
 
-export const ProductCounter = () => {
+interface IProductCounter {
+  count: number;
+  incrementCount: MouseEventHandler;
+  decrementCount: MouseEventHandler;
+}
+
+export const ProductCounter = memo((props: IProductCounter) => {
+  const { count, incrementCount, decrementCount } = props;
+
   return (
     <ProductCounterWrapper>
-      <CounterButton>+</CounterButton>
-      <ProductsCount>0</ProductsCount>
-      <CounterButton>-</CounterButton>
+      <CounterButton onClick={incrementCount}>+</CounterButton>
+      <ProductsCount>{count}</ProductsCount>
+      <CounterButton onClick={decrementCount}>-</CounterButton>
     </ProductCounterWrapper>
   );
-};
+});
 
 const ProductCounterWrapper = styled.div`
   display: grid;

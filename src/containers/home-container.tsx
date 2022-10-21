@@ -1,11 +1,15 @@
-import { ChangeEvent, useCallback, useMemo } from "react";
-import { Navbar, ProductsList } from ".";
-import { Flyout } from "../components";
+import { useMemo } from "react";
+import { Outlet, useNavigate } from "react-router";
+import styled from "styled-components";
+import { ProductsList } from ".";
+import { Navbar } from "../components";
 import { customUseSelector } from "../redux/store";
 import { ICustomer } from "../types";
 
 export const HomeContainer = () => {
   const customer: ICustomer = customUseSelector((state) => state.customer[0]);
+
+  const navigate = useNavigate();
 
   const userNames = useMemo(
     () => [
@@ -16,18 +20,22 @@ export const HomeContainer = () => {
     []
   );
 
-  const changeUser = useCallback((event: ChangeEvent<HTMLSelectElement>) => {},
-  []);
+  const showWishList = () => navigate("wishlist");
+  const showCart = () => navigate("cart");
 
   return (
-    <>
+    <HomeContainerWrapper>
       <Navbar
-        changeUser={changeUser}
+        changeUser={() => {}}
         customerName={customer.name}
         userNames={userNames}
+        showWishList={showWishList}
+        showCart={showCart}
       />
       <ProductsList />
-      <Flyout name={"Wishlist"} />
-    </>
+      <Outlet />
+    </HomeContainerWrapper>
   );
 };
+
+const HomeContainerWrapper = styled.div``;

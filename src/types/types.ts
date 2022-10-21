@@ -11,17 +11,14 @@ export interface IProduct {
 
 export interface ICustomer {
   name: string;
-  wishlist: Array<IWishlistItem>;
-  cart: Array<ICartItem>;
+  wishlist: Array<IFlyoutItem>;
+  cart: Array<IFlyoutItem>;
 }
 
-export interface IWishlistItem {
+export interface IFlyoutItem {
   image: string;
   name: string;
-}
-export interface ICartItem {
-  image: string;
-  name: string;
+  stock: number;
   count: number;
   price: number;
 }

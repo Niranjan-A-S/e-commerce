@@ -1,9 +1,11 @@
+import { productReducer } from "./../features/product/product";
 import { configureStore } from "@reduxjs/toolkit";
 import { TypedUseSelectorHook, useSelector } from "react-redux";
-import { customerReducer } from "../features/users";
+import { customerReducer } from "../features/customer";
 
 export const store = configureStore({
   reducer: {
+    product: productReducer,
     customer: customerReducer,
   },
 });

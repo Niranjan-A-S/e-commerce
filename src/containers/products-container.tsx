@@ -1,13 +1,27 @@
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
 import styled from "styled-components";
-import { Product } from "../components";
-import { data } from "../data";
+import { ProductItem } from "../components";
+import { fetchProducts } from "../redux/features/product";
+import { customUseSelector, StoreDispatch } from "../redux/store";
 
 export const ProductsList = () => {
+  const dispatch = useDispatch<StoreDispatch>();
+  const product = customUseSelector((state) => state.product);
+
+  useEffect(() => {
+    dispatch(fetchProducts());
+  }, [dispatch]);
+
   return (
     <ProductsListWrapper>
-      {data.map((product) => (
-        <Product key={product.id} product={product} />
-      ))}
+      {product.loading && <h1>Loading...</h1>}
+      {!product.loading && product.error && <h1>{product.error}</h1>}
+      {!product.loading &&
+        product.productList.length &&
+        product.productList.map((product) => (
+          <ProductItem key={product.id} product={product} />
+        ))}
     </ProductsListWrapper>
   );
 };

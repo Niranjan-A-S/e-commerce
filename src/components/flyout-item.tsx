@@ -1,21 +1,19 @@
 import styled from "styled-components";
+import { IFlyoutItem } from "../types";
 
-export const FlyoutItem = () => {
+interface IFlyoutItemProps {
+  item: IFlyoutItem;
+}
+
+export const FlyoutItem = (props: IFlyoutItemProps) => {
+  const { item } = props;
   return (
     <FlyoutItemWrapper>
       <ItemInfo>
-        <ItemImage src="https://m.media-amazon.com/images/I/71f5Eu5lJSL._SL1500_.jpg" />
-        <ItemName>MacBook Air M2</ItemName>
-        <ItemStatus>currently unavailable</ItemStatus>
+        <ItemImage src={item.image} />
+        <ItemName>{item.name}</ItemName>
+        {item.stock === 0 && <ItemStatus>currently unavailable</ItemStatus>}
       </ItemInfo>
-      {/* <ItemDataWrapper>
-        <ItemCount>
-          Quantity : <strong>2</strong>{" "}
-        </ItemCount>
-        <ItemPrice>
-          Price : <strong>Rs. 14900</strong>
-        </ItemPrice>
-      </ItemDataWrapper> */}
     </FlyoutItemWrapper>
   );
 };
