@@ -1,18 +1,10 @@
-interface ISelect {
-  options: Array<IOption>;
-  className?: string;
-}
-
-interface IOption {
-  label: string;
-  value: string;
-}
+import { ISelect } from "../types";
 
 export const SelectField = (props: ISelect) => {
-  const { options, className } = props;
+  const { options, className, onChange } = props;
 
   return (
-    <select className={className}>
+    <select className={className} onChange={onChange}>
       {options.map((option) => (
         <option key={option.value} value={option.value}>
           {option.label}

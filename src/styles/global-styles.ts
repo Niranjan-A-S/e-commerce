@@ -14,15 +14,5 @@ export const GlobalStyles = createGlobalStyle`
 
  button {
     cursor: pointer;
-    }
-
-   .rotate{ animation: rotation 2s infinite linear};
-  @keyframes rotation {
-    from {
-      transform: rotate(0deg);
-    }
-    to {
-      transform: rotate(359deg);
-    }
-  }
+ }
 `;

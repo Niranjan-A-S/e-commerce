@@ -1,18 +1,21 @@
+import { ChangeEventHandler } from "react";
 import styled from "styled-components";
 import { SelectField } from "../components";
+import { IOption } from "../types";
 
-export const Navbar = () => {
-  const options = [
-    { label: "Customer A", value: "customerA" },
-    { label: "Customer B", value: "customerB" },
-    { label: "Customer C", value: "customerC" },
-  ];
+interface INavbar {
+  customerName: string;
+  userNames: Array<IOption>;
+  changeUser: ChangeEventHandler<HTMLSelectElement>;
+}
+
+export const Navbar = (props: INavbar) => {
+  const { customerName, userNames, changeUser } = props;
 
   return (
     <NavbarWrapper>
       <Logo
-        className="rotate"
-        src={"https://cdn-icons-png.flaticon.com/512/6844/6844481.png"}
+        src={"https://cdn-icons-png.flaticon.com/512/332/332545.png"}
         alt={"brand-logo"}
       />
       <BrandName>CyberPunk</BrandName>
@@ -20,8 +23,8 @@ export const Navbar = () => {
         src={"https://cdn-icons-png.flaticon.com/512/848/848043.png"}
         alt={"profile-logo"}
       />
-      <ProfileSelect options={options} />
-      <CustomerName>{options[0].label}</CustomerName>
+      <ProfileSelect options={userNames} onChange={changeUser} />
+      <CustomerName>{customerName}</CustomerName>
       <StyledButton>
         <Logo
           src={"https://cdn-icons-png.flaticon.com/512/1216/1216575.png"}
@@ -48,8 +51,8 @@ const NavbarWrapper = styled.div`
 `;
 
 const Logo = styled.img`
-  height: 35px;
-  width: 35px;
+  height: 40px;
+  width: 40px;
 `;
 
 const BrandName = styled.strong`
