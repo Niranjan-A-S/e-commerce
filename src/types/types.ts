@@ -10,12 +10,14 @@ export interface IProduct {
 }
 
 export interface ICustomer {
+  id: number;
   name: string;
-  wishlist: Array<IFlyoutItem>;
+  wishlist: Array<IWishListItem>;
   cart: Array<IFlyoutItem>;
 }
 
 export interface IFlyoutItem {
+  id: number;
   image: string;
   name: string;
   stock: number;
@@ -31,4 +33,16 @@ export interface ISelect {
 export interface IOption {
   label: string;
   value: string;
+}
+
+export interface IPayLoadWishList {
+  checked: boolean;
+  item: IWishListItem;
+}
+
+export interface IWishListItem {
+  id: number;
+  image: string;
+  name: string;
+  stock: number;
 }

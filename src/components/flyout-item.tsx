@@ -1,8 +1,8 @@
 import styled from "styled-components";
-import { IFlyoutItem } from "../types";
+import { IWishListItem } from "../types";
 
 interface IFlyoutItemProps {
-  item: IFlyoutItem;
+  item: IWishListItem;
 }
 
 export const FlyoutItem = (props: IFlyoutItemProps) => {

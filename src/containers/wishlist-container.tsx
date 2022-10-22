@@ -2,7 +2,7 @@ import { Flyout } from "../components";
 import { customUseSelector } from "../redux/store";
 
 export const WishList = () => {
-  const { cart } = customUseSelector((state) => state.customer[0]);
+  const { wishlist } = customUseSelector((state) => state.customer);
 
-  return <Flyout name={"Wishlist"} itemsArray={cart} />;
+  return <Flyout name={"Wishlist"} itemsArray={wishlist} />;
 };

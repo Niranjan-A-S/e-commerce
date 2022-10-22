@@ -5,12 +5,11 @@ import { ProductsList } from ".";
 import { Navbar } from "../components";
 import { CustomerNames } from "../enums";
 import { customUseSelector } from "../redux/store";
-import { ICustomer } from "../types";
 
 export const HomeContainer = () => {
-  const customer: ICustomer = customUseSelector((state) => state.customer[0]);
-
   const navigate = useNavigate();
+
+  const { name } = customUseSelector((state) => state.customer);
 
   const userNames = useMemo(
     () => [
@@ -28,7 +27,7 @@ export const HomeContainer = () => {
     <HomeContainerWrapper>
       <Navbar
         changeUser={() => {}}
-        customerName={customer.name}
+        customerName={name}
         userNames={userNames}
         showWishList={showWishList}
         showCart={showCart}

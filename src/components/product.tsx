@@ -6,13 +6,14 @@ import { ProductCounter } from ".";
 
 interface IProductProps {
   product: IProduct;
+  checked: boolean;
+  addToWishList(id: number): void;
 }
 
 export const ProductItem = memo((props: IProductProps) => {
   const [count, setCount] = useState<number>(0);
-  const [checked, setChecked] = useState<boolean>(false);
 
-  const { product } = props;
+  const { product, checked, addToWishList } = props;
 
   const incrementCounter = () => {
     product.count > count && setCount((prev) => prev + 1);
@@ -38,8 +39,8 @@ export const ProductItem = memo((props: IProductProps) => {
           <strong>{product.count}</strong> left
         </ProductRemaining>
         <ProductButton>Add to Cart</ProductButton>
-        <ProductButton onClick={() => setChecked(!checked)}>
-          <AddToWishList
+        <ProductButton onClick={(event) => addToWishList(product.id)}>
+          <WishListIcon
             src={
               checked
                 ? "https://cdn-icons-png.flaticon.com/512/1216/1216649.png"
@@ -105,7 +106,7 @@ const ProductButton = styled.button`
   padding: 5px 0;
 `;
 
-const AddToWishList = styled.img`
+const WishListIcon = styled.img`
   height: 20px;
   width: 20px;
 `;

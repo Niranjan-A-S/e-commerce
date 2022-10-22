@@ -1,12 +1,12 @@
 import { useNavigate } from "react-router";
 import styled from "styled-components";
 import { ImageSources } from "../enums";
-import { IFlyoutItem } from "../types";
+import { IWishListItem } from "../types";
 import { FlyoutItem } from "./flyout-item";
 
 interface IFlyout {
   name: string;
-  itemsArray: Array<IFlyoutItem>;
+  itemsArray: Array<IWishListItem>;
 }
 
 export const Flyout = (props: IFlyout) => {
