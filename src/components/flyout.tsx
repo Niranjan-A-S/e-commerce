@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router";
 import styled from "styled-components";
+import { ImageSources } from "../enums";
 import { IFlyoutItem } from "../types";
 import { FlyoutItem } from "./flyout-item";
 
@@ -25,7 +26,7 @@ export const Flyout = (props: IFlyout) => {
           ))}
         </FlyoutItemsWrapper>
         <ExitButton onClick={goBack}>
-          <ButtonImage src="https://cdn-icons-png.flaticon.com/512/8639/8639822.png" />
+          <ButtonImage src={ImageSources.BACK_BUTTON_LOGO} alt={"arrow-left"} />
         </ExitButton>
       </FlyoutWrapper>
     </Overlay>

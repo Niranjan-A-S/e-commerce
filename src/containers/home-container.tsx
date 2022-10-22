@@ -3,6 +3,7 @@ import { Outlet, useNavigate } from "react-router";
 import styled from "styled-components";
 import { ProductsList } from ".";
 import { Navbar } from "../components";
+import { CustomerNames } from "../enums";
 import { customUseSelector } from "../redux/store";
 import { ICustomer } from "../types";
 
@@ -13,9 +14,9 @@ export const HomeContainer = () => {
 
   const userNames = useMemo(
     () => [
-      { label: "Roman Reigns", value: "Roman Reigns" },
-      { label: "Dean Ambros", value: "Dean Ambros" },
-      { label: "Seth Rollins", value: "Seth Rollins" },
+      { label: CustomerNames.CUSTOMER_A, value: CustomerNames.CUSTOMER_A },
+      { label: CustomerNames.CUSTOMER_B, value: CustomerNames.CUSTOMER_B },
+      { label: CustomerNames.CUSTOMER_C, value: CustomerNames.CUSTOMER_C },
     ],
     []
   );

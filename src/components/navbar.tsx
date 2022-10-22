@@ -1,6 +1,7 @@
 import { ChangeEventHandler, MouseEventHandler } from "react";
 import styled from "styled-components";
 import { SelectField } from ".";
+import { ImageSources } from "../enums";
 import { IOption } from "../types";
 
 interface INavbar {
@@ -16,28 +17,16 @@ export const Navbar = (props: INavbar) => {
 
   return (
     <NavbarWrapper>
-      <Logo
-        src={"https://cdn-icons-png.flaticon.com/512/332/332545.png"}
-        alt={"brand-logo"}
-      />
+      <Logo src={ImageSources.BRAND_LOGO} alt={"brand-logo"} />
       <BrandName>CyberPunk</BrandName>
-      <Logo
-        src={"https://cdn-icons-png.flaticon.com/512/848/848043.png"}
-        alt={"profile-logo"}
-      />
+      <Logo src={ImageSources.PROFILE_LOGO} alt={"profile-logo"} />
       <ProfileSelect options={userNames} onChange={changeUser} />
       <CustomerName>{customerName}</CustomerName>
       <NavbarButton onClick={showWishList}>
-        <Logo
-          src={"https://cdn-icons-png.flaticon.com/512/1216/1216575.png"}
-          alt=""
-        />
+        <Logo src={ImageSources.WISHLIST_LOGO} alt="wishlist-logo" />
       </NavbarButton>
       <NavbarButton onClick={showCart}>
-        <Logo
-          src={"https://cdn-icons-png.flaticon.com/512/649/649931.png"}
-          alt="cart-logo"
-        />
+        <Logo src={ImageSources.CART_LOGO} alt="cart-logo" />
       </NavbarButton>
     </NavbarWrapper>
   );
