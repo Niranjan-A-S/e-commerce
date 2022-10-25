@@ -1,3 +1,4 @@
+import { memo } from "react";
 import styled from "styled-components";
 import { ProductCounter } from ".";
 
@@ -5,7 +6,7 @@ interface IFlyoutItem {
   item: any; //bug
 }
 
-export const FlyoutItem = (props: IFlyoutItem) => {
+export const FlyoutItem = memo((props: IFlyoutItem) => {
   const {
     item: { image, name, stock, price, quantity },
   } = props;
@@ -15,7 +16,7 @@ export const FlyoutItem = (props: IFlyoutItem) => {
       <ItemInfo>
         <ItemImage src={image} />
         <ItemName>{name}</ItemName>
-        {stock === 0 && <ItemStatus>currently unavailable</ItemStatus>}
+        <ItemStatus>{stock === 1 && "currently unavailable"}</ItemStatus>
       </ItemInfo>
       {price && (
         <ItemDetails>
@@ -32,7 +33,7 @@ export const FlyoutItem = (props: IFlyoutItem) => {
       )}
     </FlyoutItemWrapper>
   );
-};
+});
 
 const FlyoutItemWrapper = styled.div`
   border: 1px solid rgba(0, 0, 0, 0.2);
@@ -41,7 +42,7 @@ const FlyoutItemWrapper = styled.div`
 
 const ItemInfo = styled.div`
   display: grid;
-  grid-template-columns: 0.4fr 1fr 1fr;
+  grid-template-columns: 0.2fr 1fr 0.8fr;
   grid-gap: 10px;
 `;
 

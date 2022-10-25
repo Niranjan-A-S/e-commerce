@@ -1,3 +1,4 @@
+import { memo } from "react";
 import styled from "styled-components";
 import { ImageSources } from "../enums";
 
@@ -5,7 +6,7 @@ interface IFlyoutFooter {
   navigateBack(): void;
 }
 
-export const FlyoutFooter = (props: IFlyoutFooter) => {
+export const FlyoutFooter = memo((props: IFlyoutFooter) => {
   const { navigateBack } = props;
 
   return (
@@ -13,7 +14,7 @@ export const FlyoutFooter = (props: IFlyoutFooter) => {
       <ButtonImage src={ImageSources.BACK_BUTTON} />
     </ExitButton>
   );
-};
+});
 
 const ExitButton = styled.button`
   background-color: #fff;

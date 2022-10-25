@@ -32,9 +32,8 @@ export const ProductsList = () => {
     (item: ICartItem, added: boolean) => {
       const { id, stock } = item;
 
-      stock &&
-        dispatch(productStockUpdated(id)) &&
-        dispatch(itemAddedToCart({ added, item }));
+      stock && dispatch(productStockUpdated(id));
+      dispatch(itemAddedToCart({ added, item }));
     },
     [dispatch]
   );

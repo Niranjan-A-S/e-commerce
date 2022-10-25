@@ -1,3 +1,4 @@
+import { useMemo } from "react";
 import { useNavigate } from "react-router";
 import styled from "styled-components";
 import { FlyoutItem } from "../components";
@@ -10,6 +11,16 @@ export const Cart = () => {
   const navigate = useNavigate();
   const navigateBack = () => navigate(-1);
 
+  const numOfItems = useMemo(
+    () => cart.reduce((acc, item) => acc + item.quantity, 0),
+    [cart]
+  );
+
+  const totalPrice = useMemo(
+    () => cart.reduce((acc, item) => item.price * item.quantity + acc, 0),
+    [cart]
+  );
+
   return (
     <CartWrapper>
       <Title>Cart</Title>
@@ -19,8 +30,8 @@ export const Cart = () => {
         ))}
       </CartItemsWrapper>
       <Checkout>
-        Total Price : <strong>Rs 1000000</strong>
-        Number of items : <strong>0</strong>
+        Total Price : <strong>Rs {totalPrice}</strong>
+        Number of items : <strong>{numOfItems}</strong>
       </Checkout>
       <FlyoutFooter navigateBack={navigateBack} />
     </CartWrapper>

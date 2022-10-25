@@ -1,15 +1,15 @@
-import { ReactElement } from "react";
+import { memo, ReactElement } from "react";
 import styled from "styled-components";
 
 interface IFlyoutTrial {
   children: ReactElement<HTMLDivElement>;
 }
 
-export const Flyout = (props: IFlyoutTrial) => {
+export const Flyout = memo((props: IFlyoutTrial) => {
   const { children } = props;
 
   return <Overlay>{children}</Overlay>;
-};
+});
 
 const Overlay = styled.div`
   position: absolute;

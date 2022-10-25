@@ -15,7 +15,7 @@ export const WishList = () => {
       <Title>WishList</Title>
       <WishListItemsWrapper>
         {wishlist.map((item) => (
-          <FlyoutItem item={item} />
+          <FlyoutItem key={item.id} item={item} />
         ))}
       </WishListItemsWrapper>
       <FlyoutFooter navigateBack={navigateBack} />
