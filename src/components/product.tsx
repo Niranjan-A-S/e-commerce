@@ -1,28 +1,30 @@
 import { memo, useState } from "react";
 import styled from "styled-components";
 
-import { IProduct, IWishListItem } from "../types";
+import { ICartItem, IProduct, IWishListItem } from "../types";
 import { ProductCounter } from ".";
 
 interface IProductProps {
   product: IProduct;
   addToWishList(item: IWishListItem, checked: boolean): void;
+  addToCart(item: ICartItem): void;
 }
 
 export const ProductItem = memo((props: IProductProps) => {
-  const [count, setCount] = useState<number>(0);
+  const [quantity, setCount] = useState<number>(0);
   const [checked, setChecked] = useState<boolean>(false);
 
   const {
     product: { id, price, image, stock, name, description },
     addToWishList,
+    addToCart,
   } = props;
 
   const incrementCounter = () => {
-    stock > count && setCount((prev) => prev + 1);
+    stock > quantity && setCount((prev) => prev + 1);
   };
 
-  const decrementCounter = () => count > 0 && setCount((prev) => prev - 1);
+  const decrementCounter = () => quantity > 0 && setCount((prev) => prev - 1);
 
   return (
     <ProductItemWrapper>
@@ -34,14 +36,18 @@ export const ProductItem = memo((props: IProductProps) => {
       </ProductInfo>
       <ProductTools>
         <ProductCounter
-          count={count}
+          count={quantity}
           incrementCount={incrementCounter}
           decrementCount={decrementCounter}
         />
         <ProductRemaining>
           <strong>{stock}</strong> left
         </ProductRemaining>
-        <ProductButton>Add to Cart</ProductButton>
+        <ProductButton
+          onClick={() => addToCart({ id, image, name, stock, price, quantity })}
+        >
+          Add to Cart
+        </ProductButton>
         <ProductButton
           onClick={(event) => {
             addToWishList({ id, name, image, stock }, checked);

@@ -1,13 +1,12 @@
 import styled from "styled-components";
-import { IFlyoutItem } from "../types";
 
-interface IFlyoutItemProps {
-  item: IFlyoutItem;
+interface IFlyoutItem {
+  item: any;
 }
 
-export const FlyoutItem = (props: IFlyoutItemProps) => {
+export const FlyoutItem = (props: IFlyoutItem) => {
   const {
-    item: { image, stock, name },
+    item: { image, name, stock, quantity, price },
   } = props;
 
   return (
@@ -17,6 +16,10 @@ export const FlyoutItem = (props: IFlyoutItemProps) => {
         <ItemName>{name}</ItemName>
         {stock === 0 && <ItemStatus>currently unavailable</ItemStatus>}
       </ItemInfo>
+      <div>
+        Price:<strong>{price}</strong>
+        quantity:<strong>{quantity}</strong>
+      </div>
     </FlyoutItemWrapper>
   );
 };
@@ -53,19 +56,3 @@ const ItemStatus = styled.span`
   width: fit-content;
   opacity: 0.6;
 `;
-
-// const ItemDataWrapper = styled.div`
-//   display: grid;
-//   grid-template-columns: 1fr 1fr;
-//   width: fit-content;
-// `;
-
-// const ItemCount = styled.span`
-//   justify-self: start;
-//   width: 1005;
-// `;
-
-// const ItemPrice = styled.span`
-//   justify-self: end;
-//   width: 1005;
-// `;

@@ -3,12 +3,13 @@ import { useDispatch } from "react-redux";
 import styled from "styled-components";
 import { ProductItem } from "../components";
 import {
+  itemAddedToCart,
   itemAddedToWishList,
   itemRemovedFromWishList,
 } from "../redux/features/customer";
 import { fetchProducts } from "../redux/features/product";
 import { customUseSelector, StoreDispatch } from "../redux/store";
-import { IFlyoutItem } from "../types";
+import { ICartItem } from "../types";
 
 export const ProductsList = () => {
   const dispatch = useDispatch<StoreDispatch>();
@@ -20,10 +21,16 @@ export const ProductsList = () => {
   }, [dispatch]);
 
   const addToWishList = useCallback(
-    (item: IFlyoutItem, checked: boolean) => {
-      debugger;
+    (item: ICartItem, checked: boolean) => {
       dispatch(itemAddedToWishList({ checked, item }));
       checked && dispatch(itemRemovedFromWishList(item.id));
+    },
+    [dispatch]
+  );
+
+  const addToCart = useCallback(
+    (item: ICartItem) => {
+      dispatch(itemAddedToCart({ item }));
     },
     [dispatch]
   );
@@ -39,6 +46,7 @@ export const ProductsList = () => {
             key={product.id}
             product={product}
             addToWishList={addToWishList}
+            addToCart={addToCart}
           />
         ))}
     </ProductsListWrapper>

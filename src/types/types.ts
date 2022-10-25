@@ -9,20 +9,17 @@ export interface IProduct {
   id: number;
 }
 
+export interface ICartItem extends Omit<IProduct, "description"> {
+  quantity: number;
+}
+
+export interface IWishListItem
+  extends Omit<IProduct, "price" | "description"> {}
 export interface ICustomer {
   id: number;
   name: string;
-  wishlist: Array<IFlyoutItem>;
-  cart: Array<IFlyoutItem>;
-}
-
-export interface IFlyoutItem {
-  id: number;
-  image: string;
-  name: string;
-  stock: number;
-  quantity?: number;
-  price?: number;
+  wishlist: Array<IWishListItem>;
+  cart: Array<ICartItem>;
 }
 
 export interface ISelect {
@@ -37,12 +34,5 @@ export interface IOption {
 
 export interface IPayLoadItem {
   checked: boolean;
-  item: IFlyoutItem;
-}
-
-export interface IWishListItem {
-  id: number;
-  image: string;
-  name: string;
-  stock: number;
+  item: ICartItem;
 }

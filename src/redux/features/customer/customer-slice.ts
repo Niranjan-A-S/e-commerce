@@ -35,11 +35,13 @@ const customerSlice = createSlice({
         (item) => item.id !== action.payload
       );
     },
-    itemAddedToCart: (state, action) => {},
+    itemAddedToCart: (state, action) => {
+      state.cart = [...state.cart, action.payload.item];
+    },
   },
 });
 
 export const customerReducer = customerSlice.reducer;
 
-export const { itemAddedToWishList, itemRemovedFromWishList } =
+export const { itemAddedToWishList, itemRemovedFromWishList, itemAddedToCart } =
   customerSlice.actions;
