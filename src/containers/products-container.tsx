@@ -7,7 +7,7 @@ import {
   itemAddedToWishList,
   itemRemovedFromWishList,
 } from "../redux/features/customer";
-import { fetchProducts } from "../redux/features/product";
+import { fetchProducts, productStockUpdated } from "../redux/features/product";
 import { customUseSelector, StoreDispatch } from "../redux/store";
 import { ICartItem } from "../types";
 
@@ -22,15 +22,19 @@ export const ProductsList = () => {
 
   const addToWishList = useCallback(
     (item: ICartItem, checked: boolean) => {
-      dispatch(itemAddedToWishList({ checked, item }));
+      !checked && dispatch(itemAddedToWishList({ item }));
       checked && dispatch(itemRemovedFromWishList(item.id));
     },
     [dispatch]
   );
 
   const addToCart = useCallback(
-    (item: ICartItem) => {
-      dispatch(itemAddedToCart({ item }));
+    (item: ICartItem, added: boolean) => {
+      const { id, stock } = item;
+
+      stock &&
+        dispatch(productStockUpdated(id)) &&
+        dispatch(itemAddedToCart({ added, item }));
     },
     [dispatch]
   );

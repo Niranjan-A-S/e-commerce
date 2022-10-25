@@ -1,6 +1,5 @@
 import { useCallback, useMemo } from "react";
 import { Outlet, useNavigate } from "react-router";
-import styled from "styled-components";
 import { ProductsList } from ".";
 import { Navbar } from "../components";
 import { CustomerNames } from "../enums";
@@ -24,7 +23,7 @@ export const HomeContainer = () => {
   const showCart = useCallback(() => navigate("cart"), [navigate]);
 
   return (
-    <HomeContainerWrapper>
+    <>
       <Navbar
         customerName={name}
         userNames={userNames}
@@ -35,8 +34,6 @@ export const HomeContainer = () => {
       />
       <ProductsList />
       <Outlet />
-    </HomeContainerWrapper>
+    </>
   );
 };
-
-const HomeContainerWrapper = styled.div``;

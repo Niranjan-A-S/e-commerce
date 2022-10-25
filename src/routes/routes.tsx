@@ -3,7 +3,7 @@ import { Provider } from "react-redux";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import { HomePage } from "../pages";
 import { Cart, WishList } from "../containers";
-import { FlyoutTrial } from "../components";
+import { Flyout } from "../components";
 
 export const Paths = () => {
   return (
@@ -15,10 +15,10 @@ export const Paths = () => {
             {/* <Route path="wishlist" element={<WishList />} /> */}
             <Route
               path="wishlist"
-              element={<FlyoutTrial children=<WishList /> />}
+              element={<Flyout children=<WishList /> />}
             />
             {/* <Route path="cart" element={<Cart />} /> */}
-            <Route path="cart" element={<FlyoutTrial children=<Cart /> />} />
+            <Route path="cart" element={<Flyout children=<Cart /> />} />
           </Route>
         </Routes>
       </BrowserRouter>

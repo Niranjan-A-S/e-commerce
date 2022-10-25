@@ -10,7 +10,7 @@ export const FlyoutFooter = (props: IFlyoutFooter) => {
 
   return (
     <ExitButton onClick={navigateBack}>
-      <ButtonImage src={ImageSources.BACK_BUTTON_LOGO} />
+      <ButtonImage src={ImageSources.BACK_BUTTON} />
     </ExitButton>
   );
 };

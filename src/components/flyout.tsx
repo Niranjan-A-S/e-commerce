@@ -5,7 +5,7 @@ interface IFlyoutTrial {
   children: ReactElement<HTMLDivElement>;
 }
 
-export const FlyoutTrial = (props: IFlyoutTrial) => {
+export const Flyout = (props: IFlyoutTrial) => {
   const { children } = props;
 
   return <Overlay>{children}</Overlay>;

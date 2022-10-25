@@ -25,17 +25,17 @@ export const Navbar = memo((props: INavbar) => {
 
   return (
     <NavbarWrapper>
-      <Logo src={ImageSources.BRAND_LOGO} alt={"brand-logo"} />
+      <Logo src={ImageSources.BRAND} alt={"brand-logo"} />
       <BrandName>CyberPunk</BrandName>
-      <Logo src={ImageSources.PROFILE_LOGO} alt={"profile-logo"} />
+      <Logo src={ImageSources.PROFILE} alt={"profile-logo"} />
       <ProfileSelect options={userNames} />
       <CustomerName>{customerName}</CustomerName>
       <NavbarButton onClick={showWishList}>
-        <Logo src={ImageSources.WISHLIST_LOGO} alt="wishlist-logo" />
+        <Logo src={ImageSources.WISHLIST} alt="wishlist-logo" />
         <ItemsCount>{wishListItemsCount}</ItemsCount>
       </NavbarButton>
       <NavbarButton onClick={showCart}>
-        <Logo src={ImageSources.CART_LOGO} alt="cart-logo" />
+        <Logo src={ImageSources.CART} alt="cart-logo" />
         <ItemsCount>{cartItemsCount}</ItemsCount>
       </NavbarButton>
     </NavbarWrapper>

@@ -33,7 +33,7 @@ const WishListWrapper = styled.div`
   border: 1px solid rgba(0, 0, 0, 0.2);
   z-index: 2;
   background-color: #fff;
-  width: 400px;
+  width: 500px;
   height: 100%;
   overflow-y: scroll;
   animation: flyout 1s;

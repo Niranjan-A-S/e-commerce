@@ -15,12 +15,13 @@ export const Cart = () => {
       <Title>Cart</Title>
       <CartItemsWrapper>
         {cart.map((item) => (
-          <FlyoutItem item={item} />
+          <FlyoutItem key={item.id} item={item} />
         ))}
       </CartItemsWrapper>
-      <TotalPrice>
+      <Checkout>
         Total Price : <strong>Rs 1000000</strong>
-      </TotalPrice>
+        Number of items : <strong>0</strong>
+      </Checkout>
       <FlyoutFooter navigateBack={navigateBack} />
     </CartWrapper>
   );
@@ -36,7 +37,7 @@ const CartWrapper = styled.div`
   border: 1px solid rgba(0, 0, 0, 0.2);
   z-index: 2;
   background-color: #fff;
-  width: 400px;
+  width: 500px;
   height: 100%;
   overflow-y: scroll;
   animation: flyout 1s;
@@ -70,8 +71,10 @@ const CartItemsWrapper = styled.div`
   grid-gap: 20px;
 `;
 
-const TotalPrice = styled.span`
+const Checkout = styled.span`
   border-top: 1px solid rgba(0, 0, 0, 0.2);
   align-self: end;
   margin-bottom: 10px;
+  display: grid;
+  grid-template-columns: 0.6fr 0.4fr;
 `;

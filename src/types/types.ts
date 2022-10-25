@@ -8,7 +8,6 @@ export interface IProduct {
   stock: number;
   id: number;
 }
-
 export interface ICartItem extends Omit<IProduct, "description"> {
   quantity: number;
 }

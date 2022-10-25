@@ -2,17 +2,18 @@ import { memo, useState } from "react";
 import styled from "styled-components";
 
 import { ICartItem, IProduct, IWishListItem } from "../types";
-import { ProductCounter } from ".";
+import { ImageSources } from "../enums";
+import { InStock, outOfStock } from "../styles";
 
 interface IProductProps {
   product: IProduct;
   addToWishList(item: IWishListItem, checked: boolean): void;
-  addToCart(item: ICartItem): void;
+  addToCart(item: ICartItem, added: boolean): void;
 }
 
 export const ProductItem = memo((props: IProductProps) => {
-  const [quantity, setCount] = useState<number>(0);
   const [checked, setChecked] = useState<boolean>(false);
+  const [added, setAdded] = useState<boolean>(false);
 
   const {
     product: { id, price, image, stock, name, description },
@@ -20,46 +21,35 @@ export const ProductItem = memo((props: IProductProps) => {
     addToCart,
   } = props;
 
-  const incrementCounter = () => {
-    stock > quantity && setCount((prev) => prev + 1);
-  };
-
-  const decrementCounter = () => quantity > 0 && setCount((prev) => prev - 1);
-
   return (
     <ProductItemWrapper>
+      <ProductImage src={image} alt={"product-image"} />
+      <ProductName children={name} />
+      <ProductDescription children={description} />
       <ProductInfo>
-        <ProductImage src={image} alt={"product-image"} />
-        <ProductName children={name} />
-        <ProductDescription children={description} />
-        <ProductPrice>Rs.{price}</ProductPrice>
+        <strong>Rs.{price}</strong>
+        <ProductStock>
+          <strong>{stock}</strong> left
+        </ProductStock>
       </ProductInfo>
       <ProductTools>
-        <ProductCounter
-          count={quantity}
-          incrementCount={incrementCounter}
-          decrementCount={decrementCounter}
-        />
-        <ProductRemaining>
-          <strong>{stock}</strong> left
-        </ProductRemaining>
         <ProductButton
-          onClick={() => addToCart({ id, image, name, stock, price, quantity })}
+          style={!stock ? outOfStock : InStock}
+          onClick={() => {
+            addToCart({ id, image, name, stock, price, quantity: 1 }, added);
+            setAdded(true);
+          }}
         >
-          Add to Cart
+          {stock ? "Add to Cart" : "Sold Out"}
         </ProductButton>
         <ProductButton
-          onClick={(event) => {
+          onClick={() => {
             addToWishList({ id, name, image, stock }, checked);
             setChecked(!checked);
           }}
         >
           <WishListIcon
-            src={
-              checked
-                ? "https://cdn-icons-png.flaticon.com/512/1216/1216649.png"
-                : "https://cdn-icons-png.flaticon.com/512/1216/1216575.png"
-            }
+            src={checked ? ImageSources.WISHLIST_RED : ImageSources.WISHLIST}
             alt="heart-logo"
           />
         </ProductButton>
@@ -73,12 +63,12 @@ const ProductItemWrapper = styled.div`
   background-color: #fff;
   padding: 10px;
   display: grid;
-  grid-row-gap: 20px;
+  grid-row-gap: 5px;
 `;
 
 const ProductInfo = styled.div`
   display: grid;
-  grid-row-gap: 5px;
+  grid-template-columns: 1fr 1fr;
 `;
 const ProductTools = styled.div`
   display: grid;
@@ -106,11 +96,7 @@ const ProductDescription = styled.span`
   align-self: center;
 `;
 
-const ProductPrice = styled.span`
-  font-weight: bold;
-`;
-
-const ProductRemaining = styled.span`
+const ProductStock = styled.span`
   justify-self: end;
 `;
 
