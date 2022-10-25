@@ -1,4 +1,4 @@
-import { ChangeEventHandler, MouseEventHandler } from "react";
+import { memo, MouseEventHandler } from "react";
 import styled from "styled-components";
 import { SelectField } from ".";
 import { ImageSources } from "../enums";
@@ -7,30 +7,40 @@ import { IOption } from "../types";
 interface INavbar {
   customerName: string;
   userNames: Array<IOption>;
-  changeUser: ChangeEventHandler<HTMLSelectElement>;
   showWishList: MouseEventHandler;
   showCart: MouseEventHandler;
+  wishListItemsCount: number;
+  cartItemsCount: number;
 }
 
-export const Navbar = (props: INavbar) => {
-  const { customerName, userNames, changeUser, showWishList, showCart } = props;
+export const Navbar = memo((props: INavbar) => {
+  const {
+    customerName,
+    userNames,
+    showWishList,
+    showCart,
+    wishListItemsCount,
+    cartItemsCount,
+  } = props;
 
   return (
     <NavbarWrapper>
       <Logo src={ImageSources.BRAND_LOGO} alt={"brand-logo"} />
       <BrandName>CyberPunk</BrandName>
       <Logo src={ImageSources.PROFILE_LOGO} alt={"profile-logo"} />
-      <ProfileSelect options={userNames} onChange={changeUser} />
+      <ProfileSelect options={userNames} />
       <CustomerName>{customerName}</CustomerName>
       <NavbarButton onClick={showWishList}>
         <Logo src={ImageSources.WISHLIST_LOGO} alt="wishlist-logo" />
+        <ItemsCount>{wishListItemsCount}</ItemsCount>
       </NavbarButton>
       <NavbarButton onClick={showCart}>
         <Logo src={ImageSources.CART_LOGO} alt="cart-logo" />
+        <ItemsCount>{cartItemsCount}</ItemsCount>
       </NavbarButton>
     </NavbarWrapper>
   );
-};
+});
 
 const NavbarWrapper = styled.div`
   display: grid;
@@ -69,4 +79,13 @@ const ProfileSelect = styled(SelectField)`
   border: none;
   align-self: center;
   background-color: inherit;
+`;
+
+const ItemsCount = styled.sup`
+  background-color: red;
+  color: #fff;
+  font-size: 15px;
+  font-weight: bolder;
+  border-radius: 100%;
+  padding: 3px 6px;
 `;

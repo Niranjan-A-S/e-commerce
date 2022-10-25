@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+import { useCallback, useMemo } from "react";
 import { Outlet, useNavigate } from "react-router";
 import styled from "styled-components";
 import { ProductsList } from ".";
@@ -9,7 +9,7 @@ import { customUseSelector } from "../redux/store";
 export const HomeContainer = () => {
   const navigate = useNavigate();
 
-  const { name } = customUseSelector((state) => state.customer);
+  const { name, wishlist, cart } = customUseSelector((state) => state.customer);
 
   const userNames = useMemo(
     () => [
@@ -20,17 +20,18 @@ export const HomeContainer = () => {
     []
   );
 
-  const showWishList = () => navigate("wishlist");
-  const showCart = () => navigate("cart");
+  const showWishList = useCallback(() => navigate("wishlist"), [navigate]);
+  const showCart = useCallback(() => navigate("cart"), [navigate]);
 
   return (
     <HomeContainerWrapper>
       <Navbar
-        changeUser={() => {}}
         customerName={name}
         userNames={userNames}
         showWishList={showWishList}
         showCart={showCart}
+        wishListItemsCount={wishlist.length}
+        cartItemsCount={cart.length}
       />
       <ProductsList />
       <Outlet />

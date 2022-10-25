@@ -1,6 +1,7 @@
+import { memo } from "react";
 import { ISelect } from "../types";
 
-export const SelectField = (props: ISelect) => {
+export const SelectField = memo((props: ISelect) => {
   const { options, className, onChange } = props;
 
   return (
@@ -12,4 +13,4 @@ export const SelectField = (props: ISelect) => {
       ))}
     </select>
   );
-};
+});

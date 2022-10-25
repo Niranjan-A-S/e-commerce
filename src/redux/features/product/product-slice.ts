@@ -18,6 +18,7 @@ export const fetchProducts = createAsyncThunk(
   async () => {
     const response = await fetch(
       "https://634fe849df22c2af7b5d6dce.mockapi.io/product"
+      // "https://634fe849df22c2af7b5d6dce.mockapi.io/product"
     );
     const data = await response.json();
     return data;
@@ -27,18 +28,7 @@ export const fetchProducts = createAsyncThunk(
 export const productSlice = createSlice({
   name: "product",
   initialState,
-  reducers: {
-    // stockUpdate: (state, action: PayloadAction<any>) => {
-    //   state.productList = state.productList.map((product) =>
-    //     product.id === action.payload.id
-    //       ? {
-    //           ...product,
-    //           count: product.count - action.payload.count,
-    //         }
-    //       : product
-    //   );
-    // },
-  },
+  reducers: {},
   extraReducers: (builder) => {
     builder.addCase(fetchProducts.pending, (state) => {
       state.loading = true;

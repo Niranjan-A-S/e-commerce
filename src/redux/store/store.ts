@@ -1,4 +1,4 @@
-import { productReducer } from "./../features/product/product";
+import { productReducer } from "../features/product/product-slice";
 import { configureStore } from "@reduxjs/toolkit";
 import { TypedUseSelectorHook, useSelector } from "react-redux";
 import { customerReducer } from "../features/customer";

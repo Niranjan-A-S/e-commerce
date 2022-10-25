@@ -1,6 +1,5 @@
 export * from "./select-field";
 export * from "./product-counter";
-export * from "./flyout";
 export * from "./product";
 export * from "./flyout-item";
 export * from "./navbar";

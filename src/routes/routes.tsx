@@ -3,6 +3,7 @@ import { Provider } from "react-redux";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import { HomePage } from "../pages";
 import { Cart, WishList } from "../containers";
+import { FlyoutTrial } from "../components";
 
 export const Paths = () => {
   return (
@@ -11,8 +12,13 @@ export const Paths = () => {
         <Routes>
           <Route path="/" element={<Navigate to="cyberpunk" />} />
           <Route path="cyberpunk" element={<HomePage />}>
-            <Route path="wishlist" element={<WishList />} />
-            <Route path="cart" element={<Cart />} />
+            {/* <Route path="wishlist" element={<WishList />} /> */}
+            <Route
+              path="wishlist"
+              element={<FlyoutTrial children=<WishList /> />}
+            />
+            {/* <Route path="cart" element={<Cart />} /> */}
+            <Route path="cart" element={<FlyoutTrial children=<Cart /> />} />
           </Route>
         </Routes>
       </BrowserRouter>

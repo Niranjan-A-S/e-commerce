@@ -1,18 +1,21 @@
 import styled from "styled-components";
-import { IWishListItem } from "../types";
+import { IFlyoutItem } from "../types";
 
 interface IFlyoutItemProps {
-  item: IWishListItem;
+  item: IFlyoutItem;
 }
 
 export const FlyoutItem = (props: IFlyoutItemProps) => {
-  const { item } = props;
+  const {
+    item: { image, stock, name },
+  } = props;
+
   return (
     <FlyoutItemWrapper>
       <ItemInfo>
-        <ItemImage src={item.image} />
-        <ItemName>{item.name}</ItemName>
-        {item.stock === 0 && <ItemStatus>currently unavailable</ItemStatus>}
+        <ItemImage src={image} />
+        <ItemName>{name}</ItemName>
+        {stock === 0 && <ItemStatus>currently unavailable</ItemStatus>}
       </ItemInfo>
     </FlyoutItemWrapper>
   );

@@ -1,25 +1,31 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import styled from "styled-components";
 import { ProductItem } from "../components";
+import {
+  itemAddedToWishList,
+  itemRemovedFromWishList,
+} from "../redux/features/customer";
 import { fetchProducts } from "../redux/features/product";
 import { customUseSelector, StoreDispatch } from "../redux/store";
+import { IFlyoutItem } from "../types";
 
 export const ProductsList = () => {
   const dispatch = useDispatch<StoreDispatch>();
 
   const product = customUseSelector((state) => state.product);
-  const [checked, setChecked] = useState<boolean>(true);
 
   useEffect(() => {
     dispatch(fetchProducts());
   }, [dispatch]);
 
   const addToWishList = useCallback(
-    (id: number) => {
-      setChecked(!checked);
+    (item: IFlyoutItem, checked: boolean) => {
+      debugger;
+      dispatch(itemAddedToWishList({ checked, item }));
+      checked && dispatch(itemRemovedFromWishList(item.id));
     },
-    [checked]
+    [dispatch]
   );
 
   return (
@@ -32,7 +38,6 @@ export const ProductsList = () => {
           <ProductItem
             key={product.id}
             product={product}
-            checked={checked}
             addToWishList={addToWishList}
           />
         ))}

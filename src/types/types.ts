@@ -5,14 +5,14 @@ export interface IProduct {
   name: string;
   description: string;
   price: number;
-  count: number;
+  stock: number;
   id: number;
 }
 
 export interface ICustomer {
   id: number;
   name: string;
-  wishlist: Array<IWishListItem>;
+  wishlist: Array<IFlyoutItem>;
   cart: Array<IFlyoutItem>;
 }
 
@@ -21,23 +21,23 @@ export interface IFlyoutItem {
   image: string;
   name: string;
   stock: number;
-  count: number;
-  price: number;
+  quantity?: number;
+  price?: number;
 }
 
 export interface ISelect {
   options: Array<IOption>;
   className?: string;
-  onChange: ChangeEventHandler<HTMLSelectElement>;
+  onChange?: ChangeEventHandler<HTMLSelectElement>;
 }
 export interface IOption {
   label: string;
   value: string;
 }
 
-export interface IPayLoadWishList {
+export interface IPayLoadItem {
   checked: boolean;
-  item: IWishListItem;
+  item: IFlyoutItem;
 }
 
 export interface IWishListItem {

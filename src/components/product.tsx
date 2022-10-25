@@ -1,22 +1,25 @@
 import { memo, useState } from "react";
 import styled from "styled-components";
 
-import { IProduct } from "../types";
+import { IProduct, IWishListItem } from "../types";
 import { ProductCounter } from ".";
 
 interface IProductProps {
   product: IProduct;
-  checked: boolean;
-  addToWishList(id: number): void;
+  addToWishList(item: IWishListItem, checked: boolean): void;
 }
 
 export const ProductItem = memo((props: IProductProps) => {
   const [count, setCount] = useState<number>(0);
+  const [checked, setChecked] = useState<boolean>(false);
 
-  const { product, checked, addToWishList } = props;
+  const {
+    product: { id, price, image, stock, name, description },
+    addToWishList,
+  } = props;
 
   const incrementCounter = () => {
-    product.count > count && setCount((prev) => prev + 1);
+    stock > count && setCount((prev) => prev + 1);
   };
 
   const decrementCounter = () => count > 0 && setCount((prev) => prev - 1);
@@ -24,10 +27,10 @@ export const ProductItem = memo((props: IProductProps) => {
   return (
     <ProductItemWrapper>
       <ProductInfo>
-        <ProductImage src={product.image} alt={"product-image"} />
-        <ProductName children={product.name} />
-        <ProductDescription children={product.description} />
-        <ProductPrice>Rs.{product.price}</ProductPrice>
+        <ProductImage src={image} alt={"product-image"} />
+        <ProductName children={name} />
+        <ProductDescription children={description} />
+        <ProductPrice>Rs.{price}</ProductPrice>
       </ProductInfo>
       <ProductTools>
         <ProductCounter
@@ -36,10 +39,15 @@ export const ProductItem = memo((props: IProductProps) => {
           decrementCount={decrementCounter}
         />
         <ProductRemaining>
-          <strong>{product.count}</strong> left
+          <strong>{stock}</strong> left
         </ProductRemaining>
         <ProductButton>Add to Cart</ProductButton>
-        <ProductButton onClick={(event) => addToWishList(product.id)}>
+        <ProductButton
+          onClick={(event) => {
+            addToWishList({ id, name, image, stock }, checked);
+            setChecked(!checked);
+          }}
+        >
           <WishListIcon
             src={
               checked
