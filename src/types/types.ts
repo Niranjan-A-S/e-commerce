@@ -14,11 +14,11 @@ export interface ICartItem extends Omit<IProduct, "description"> {
 }
 
 export interface IWishListItem
-  extends Omit<IProduct, "price" | "description" | "stock" | "stockLeft"> {}
+  extends Omit<IProduct, "price" | "description" | "stockLeft"> {}
 export interface ICustomer {
   id: number;
   name: string;
-  wishlist: Array<IWishListItem>;
+  wishlist: Array<number>;
   cart: Array<ICartItem>;
 }
 

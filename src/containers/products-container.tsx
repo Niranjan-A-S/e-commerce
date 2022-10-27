@@ -12,7 +12,7 @@ import {
   productStockDecreased,
 } from "../redux/features/product";
 import { customUseSelector, StoreDispatch } from "../redux/store";
-import { ICartItem, IWishListItem } from "../types";
+import { ICartItem } from "../types";
 
 export const ProductsList = () => {
   const dispatch = useDispatch<StoreDispatch>();
@@ -24,9 +24,9 @@ export const ProductsList = () => {
   }, [dispatch]);
 
   const addToWishList = useCallback(
-    (item: IWishListItem, checked: boolean) => {
-      !checked && dispatch(itemAddedToWishList(item));
-      checked && dispatch(itemRemovedFromWishList(item.id));
+    (id: number, checked: boolean) => {
+      !checked && dispatch(itemAddedToWishList(id));
+      checked && dispatch(itemRemovedFromWishList(id));
     },
     [dispatch]
   );

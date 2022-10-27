@@ -1,11 +1,14 @@
 import { useNavigate } from "react-router";
 import styled from "styled-components";
-import { FlyoutItem } from "../components";
+import { WishListItem } from "../components";
 import { FlyoutFooter } from "../components/flyout-footer";
 import { customUseSelector } from "../redux/store";
 
 export const WishList = () => {
-  const { wishlist } = customUseSelector((state) => state.customer);
+  const {
+    customer: { wishlist },
+    product: { productList },
+  } = customUseSelector((state) => state);
 
   const navigate = useNavigate();
   const navigateBack = () => navigate(-1);
@@ -14,15 +17,11 @@ export const WishList = () => {
     <WishListWrapper>
       <Title>WishList</Title>
       <WishListItemsWrapper>
-        {wishlist.map((item) => (
-          <FlyoutItem
-            key={item.id}
-            item={item}
-            incrementCount={() => {}}
-            decrementCount={() => {}}
-            deleteItem={() => {}}
-          />
-        ))}
+        {wishlist.map((id) =>
+          productList.map(
+            (product) => product.id === id && <WishListItem item={product} />
+          )
+        )}
       </WishListItemsWrapper>
       <FlyoutFooter navigateBack={navigateBack} />
     </WishListWrapper>

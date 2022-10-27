@@ -32,31 +32,20 @@ export const FlyoutItem = memo((props: IFlyoutItem) => {
       <ItemInfo>
         <ItemImage src={image} />
         <ItemName>{name}</ItemName>
-        {
-          // !stockLeft ? (
-          //   <ItemStatus>currently unavailable</ItemStatus>
-          // ) : null /*bug*/
-        }
       </ItemInfo>
-      {price && (
-        <ItemDetails>
-          <ProductCounter
-            count={quantity}
-            incrementCount={() =>
-              incrementCount(id, stock, quantity, stockLeft)
-            }
-            decrementCount={() =>
-              decrementCount(id, stock, quantity, stockLeft)
-            }
-          />
-          <DeleteButton onClick={() => deleteItem(id)}>
-            Remove from Cart
-          </DeleteButton>
-          <ItemPrice>
-            Price : Rs. <strong>{price * quantity}</strong>
-          </ItemPrice>
-        </ItemDetails>
-      )}
+      <ItemDetails>
+        <ProductCounter
+          count={quantity}
+          incrementCount={() => incrementCount(id, stock, quantity, stockLeft)}
+          decrementCount={() => decrementCount(id, stock, quantity, stockLeft)}
+        />
+        <DeleteButton onClick={() => deleteItem(id)}>
+          Remove from Cart
+        </DeleteButton>
+        <ItemPrice>
+          Price : Rs. <strong>{price * quantity}</strong>
+        </ItemPrice>
+      </ItemDetails>
     </FlyoutItemWrapper>
   );
 });

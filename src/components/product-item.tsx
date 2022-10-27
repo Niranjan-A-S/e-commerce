@@ -1,13 +1,13 @@
 import { memo, useState } from "react";
 import styled from "styled-components";
 
-import { ICartItem, IProduct, IWishListItem } from "../types";
+import { ICartItem, IProduct } from "../types";
 import { ImageSources } from "../enums";
 import { InStock, outOfStock } from "../styles";
 
 interface IProductProps {
   product: IProduct;
-  addToWishList(item: IWishListItem, checked: boolean): void;
+  addToWishList(item: number, checked: boolean): void;
   addToCart(item: ICartItem): void;
 }
 
@@ -50,7 +50,7 @@ export const ProductItem = memo((props: IProductProps) => {
         </ProductButton>
         <ProductButton
           onClick={() => {
-            addToWishList({ id, name, image }, checked);
+            addToWishList(id, checked);
             setChecked(!checked);
           }}
         >
