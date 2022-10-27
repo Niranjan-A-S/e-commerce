@@ -20,7 +20,7 @@ export const WishListItem = (props: IWishListItemProps) => {
 
 const WishListItemWrapper = styled.div`
   display: grid;
-  grid-template-columns: 0.5fr 1fr 0.9fr;
+  grid-template-columns: 0.5fr 1fr 0.8fr;
   border: 1px solid rgba(0, 0, 0, 0.1);
   padding: 10px;
 `;
@@ -35,7 +35,6 @@ const ItemName = styled.span`
   align-self: center;
   font-weight: bold;
   font-size: 18px;
-  width: fit-content;
 `;
 
 const ItemStatus = styled.span`

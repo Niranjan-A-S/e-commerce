@@ -17,10 +17,11 @@ export const WishList = () => {
     <WishListWrapper>
       <Title>WishList</Title>
       <WishListItemsWrapper>
-        {wishlist.map((id) =>
-          productList.map(
-            (product) => product.id === id && <WishListItem item={product} />
-          )
+        {productList.map(
+          (product) =>
+            wishlist.includes(product.id) && (
+              <WishListItem key={product.id} item={product} />
+            )
         )}
       </WishListItemsWrapper>
       <FlyoutFooter navigateBack={navigateBack} />
