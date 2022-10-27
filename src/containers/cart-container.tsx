@@ -1,11 +1,24 @@
-import { useMemo } from "react";
+import { useCallback, useMemo } from "react";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router";
 import styled from "styled-components";
 import { FlyoutItem } from "../components";
 import { FlyoutFooter } from "../components/flyout-footer";
-import { customUseSelector } from "../redux/store";
+import {
+  itemQuantityDecreased,
+  itemQuantityIncreased,
+  itemRemovedFromCart,
+} from "../redux/features/customer";
+import {
+  productStockDecreased,
+  productStockIncreased,
+  productStockUpdated,
+} from "../redux/features/product";
+import { customUseSelector, StoreDispatch } from "../redux/store";
 
 export const Cart = () => {
+  const dispatch = useDispatch<StoreDispatch>();
+
   const { cart } = customUseSelector((state) => state.customer);
 
   const navigate = useNavigate();
@@ -21,12 +34,42 @@ export const Cart = () => {
     [cart]
   );
 
+  const increaseQuantity = useCallback(
+    (id: number, stock: number, quantity: number, stockLeft: number) => {
+      quantity < stock &&
+        dispatch(productStockDecreased(id)) &&
+        dispatch(itemQuantityIncreased(id));
+    },
+    [dispatch]
+  );
+
+  const decreaseQuantity = useCallback(
+    (id: number, stock: number, quantity: number, stockLeft: number) =>
+      quantity > 0 &&
+      dispatch(productStockIncreased(id)) &&
+      dispatch(itemQuantityDecreased(id)),
+    [dispatch]
+  );
+
+  const deleteItem = useCallback(
+    (id: number) => {
+      dispatch(itemRemovedFromCart(id)) && dispatch(productStockUpdated(id));
+    },
+    [dispatch]
+  );
+
   return (
     <CartWrapper>
       <Title>Cart</Title>
       <CartItemsWrapper>
         {cart.map((item) => (
-          <FlyoutItem key={item.id} item={item} />
+          <FlyoutItem
+            key={item.id}
+            item={item}
+            incrementCount={increaseQuantity}
+            decrementCount={decreaseQuantity}
+            deleteItem={deleteItem}
+          />
         ))}
       </CartItemsWrapper>
       <Checkout>

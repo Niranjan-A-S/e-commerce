@@ -7,13 +7,14 @@ export interface IProduct {
   price: number;
   stock: number;
   id: number;
+  stockLeft: number;
 }
 export interface ICartItem extends Omit<IProduct, "description"> {
   quantity: number;
 }
 
 export interface IWishListItem
-  extends Omit<IProduct, "price" | "description"> {}
+  extends Omit<IProduct, "price" | "description" | "stock" | "stockLeft"> {}
 export interface ICustomer {
   id: number;
   name: string;

@@ -15,7 +15,13 @@ export const WishList = () => {
       <Title>WishList</Title>
       <WishListItemsWrapper>
         {wishlist.map((item) => (
-          <FlyoutItem key={item.id} item={item} />
+          <FlyoutItem
+            key={item.id}
+            item={item}
+            incrementCount={() => {}}
+            decrementCount={() => {}}
+            deleteItem={() => {}}
+          />
         ))}
       </WishListItemsWrapper>
       <FlyoutFooter navigateBack={navigateBack} />

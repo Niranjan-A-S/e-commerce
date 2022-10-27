@@ -8,15 +8,14 @@ import { InStock, outOfStock } from "../styles";
 interface IProductProps {
   product: IProduct;
   addToWishList(item: IWishListItem, checked: boolean): void;
-  addToCart(item: ICartItem, added: boolean): void;
+  addToCart(item: ICartItem): void;
 }
 
 export const ProductItem = memo((props: IProductProps) => {
   const [checked, setChecked] = useState<boolean>(false);
-  const [added, setAdded] = useState<boolean>(false);
 
   const {
-    product: { id, price, image, stock, name, description },
+    product: { id, price, image, stock, name, description, stockLeft },
     addToWishList,
     addToCart,
   } = props;
@@ -29,22 +28,29 @@ export const ProductItem = memo((props: IProductProps) => {
       <ProductInfo>
         <strong>Rs.{price}</strong>
         <ProductStock>
-          <strong>{stock}</strong> left
+          <strong>{stockLeft}</strong> left
         </ProductStock>
       </ProductInfo>
       <ProductTools>
         <ProductButton
-          style={!stock ? outOfStock : InStock}
+          style={!stockLeft ? outOfStock : InStock}
           onClick={() => {
-            addToCart({ id, image, name, stock, price, quantity: 1 }, added);
-            setAdded(true);
+            addToCart({
+              id,
+              image,
+              name,
+              price,
+              stock,
+              quantity: 1,
+              stockLeft,
+            });
           }}
         >
-          {stock ? "Add to Cart" : "Sold Out"}
+          {stockLeft ? "Add to Cart" : "Sold Out"}
         </ProductButton>
         <ProductButton
           onClick={() => {
-            addToWishList({ id, name, image, stock }, checked);
+            addToWishList({ id, name, image }, checked);
             setChecked(!checked);
           }}
         >
