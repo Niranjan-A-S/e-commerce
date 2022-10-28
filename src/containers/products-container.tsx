@@ -29,7 +29,7 @@ export const ProductsList = () => {
   const addToCart = useCallback(
     (item: ICartItem) => {
       const { id } = item;
-      dispatch(productStockUpdated(id));
+      dispatch(productStockUpdated({ id, event: false }));
       dispatch(itemAddedToCart(item));
     },
     [dispatch]

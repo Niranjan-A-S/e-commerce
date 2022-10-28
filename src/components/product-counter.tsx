@@ -12,7 +12,12 @@ export const ProductCounter = memo((props: IProductCounter) => {
 
   return (
     <ProductCounterWrapper>
-      <CounterButton onClick={decrementCount}>-</CounterButton>
+      <CounterButton
+        disabled={count <= 0 ? true : false}
+        onClick={decrementCount}
+      >
+        -
+      </CounterButton>
       <ProductsCount>{count}</ProductsCount>
       <CounterButton onClick={incrementCount}>+</CounterButton>
     </ProductCounterWrapper>
@@ -28,7 +33,7 @@ const ProductCounterWrapper = styled.div`
 
 const CounterButton = styled.button`
   background-color: inherit;
-  border: 1px solid rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(0, 0, 0, 0.5);
   padding: 0 5px;
   font-size: 20px;
 `;

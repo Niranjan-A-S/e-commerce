@@ -1,3 +1,4 @@
+import { IStockUpdate } from "./../../../types/types";
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { IProduct } from "../../../types";
 
@@ -28,13 +29,12 @@ export const productSlice = createSlice({
   name: "product",
   initialState,
   reducers: {
-    productStockUpdated: (state, action: PayloadAction<number>) => {
+    productStockUpdated: (state, action: PayloadAction<IStockUpdate>) => {
       state.productList = state.productList.map((product) =>
-        product.id === action.payload && product.stockLeft
-          ? {
-              ...product,
-              stockLeft: product.stockLeft - 1,
-            }
+        product.id === action.payload.id
+          ? action.payload.event
+            ? { ...product, stockLeft: product.stockLeft + 1 }
+            : { ...product, stockLeft: product.stockLeft - 1 }
           : product
       );
     },

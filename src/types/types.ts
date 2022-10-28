@@ -38,3 +38,7 @@ export interface ICartItemUpdate {
   id: number;
   event: boolean;
 }
+export interface IStockUpdate {
+  id: number;
+  event: boolean;
+}

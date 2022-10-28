@@ -5,6 +5,7 @@ import styled from "styled-components";
 import { CartItem } from "../components";
 import { FlyoutFooter } from "../components/flyout-footer";
 import { cartItemUpdated } from "../redux/features/customer";
+import { productStockUpdated } from "../redux/features/product";
 import { customUseSelector, StoreDispatch } from "../redux/store";
 
 export const Cart = () => {
@@ -20,8 +21,12 @@ export const Cart = () => {
 
   const incrementQuantity = useCallback(
     (id: number, event: boolean) => {
-      console.log({ productList });
-      dispatch(cartItemUpdated({ id, event }));
+      const inStock = productList.some(
+        (product) => product.id === id && product.stockLeft
+      );
+      inStock &&
+        dispatch(cartItemUpdated({ id, event })) &&
+        dispatch(productStockUpdated({ id, event: false }));
     },
     [dispatch, productList]
   );
@@ -29,6 +34,7 @@ export const Cart = () => {
   const decrementQuantity = useCallback(
     (id: number, event: boolean) => {
       dispatch(cartItemUpdated({ id, event }));
+      dispatch(productStockUpdated({ id, event: true }));
     },
     [dispatch]
   );
