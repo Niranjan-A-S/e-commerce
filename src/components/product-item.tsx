@@ -1,13 +1,13 @@
 import { memo, useState } from "react";
 import styled from "styled-components";
 
-import { IProduct } from "../types";
+import { ICartItem, IProduct } from "../types";
 import { ImageSources } from "../enums";
 
 interface IProductProps {
   product: IProduct;
   addToWishList(item: number): void;
-  addToCart(id: number): void;
+  addToCart(item: ICartItem): void;
 }
 
 export const ProductItem = memo((props: IProductProps) => {
@@ -33,7 +33,7 @@ export const ProductItem = memo((props: IProductProps) => {
       <ProductTools>
         <ProductButton
           disabled={!stockLeft ? true : false}
-          onClick={() => addToCart(id)}
+          onClick={() => addToCart({ id, name, price, image, quantity: 1 })}
           children={stockLeft ? "Add to Cart" : "Out of Stock"}
         />
         <ProductButton

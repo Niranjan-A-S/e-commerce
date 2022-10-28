@@ -30,7 +30,7 @@ export const productSlice = createSlice({
   reducers: {
     productStockUpdated: (state, action: PayloadAction<number>) => {
       state.productList = state.productList.map((product) =>
-        product.stockLeft && product.id === action.payload
+        product.id === action.payload && product.stockLeft
           ? {
               ...product,
               stockLeft: product.stockLeft - 1,

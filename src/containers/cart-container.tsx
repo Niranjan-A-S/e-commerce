@@ -1,15 +1,47 @@
+import { useCallback } from "react";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router";
 import styled from "styled-components";
+import { CartItem } from "../components";
 import { FlyoutFooter } from "../components/flyout-footer";
+import { cartItemUpdated } from "../redux/features/customer";
+import { customUseSelector, StoreDispatch } from "../redux/store";
 
 export const Cart = () => {
+  const dispatch = useDispatch<StoreDispatch>();
+
   const navigate = useNavigate();
   const navigateBack = () => navigate(-1);
+
+  const { cart } = customUseSelector((state) => state.customer);
+
+  const incrementQuantity = useCallback(
+    (id: number, event: boolean) => {
+      dispatch(cartItemUpdated({ id, event }));
+    },
+    [dispatch]
+  );
+
+  const decrementQuantity = useCallback(
+    (id: number, event: boolean) => {
+      dispatch(cartItemUpdated({ id, event }));
+    },
+    [dispatch]
+  );
 
   return (
     <CartWrapper>
       <Title>Cart</Title>
-      <CartItemsWrapper></CartItemsWrapper>
+      <CartItemsWrapper>
+        {cart.map((item) => (
+          <CartItem
+            key={item.id}
+            item={item}
+            incrementQuantity={incrementQuantity}
+            decrementQuantity={decrementQuantity}
+          />
+        ))}
+      </CartItemsWrapper>
       <Checkout>
         Total Price : <strong>Rs totalPrice</strong>
         Number of items : <strong>numOfItems</strong>

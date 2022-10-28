@@ -12,24 +12,21 @@ export const ProductCounter = memo((props: IProductCounter) => {
 
   return (
     <ProductCounterWrapper>
-      <CounterButton onClick={incrementCount}>+</CounterButton>
-      <ProductsCount>
-        Quantity :<strong>{count}</strong>
-      </ProductsCount>
       <CounterButton onClick={decrementCount}>-</CounterButton>
+      <ProductsCount>{count}</ProductsCount>
+      <CounterButton onClick={incrementCount}>+</CounterButton>
     </ProductCounterWrapper>
   );
 });
 
 const ProductCounterWrapper = styled.div`
   display: grid;
-  grid-template-columns: 0.1fr 0.7fr 0.1fr;
-  grid-gap: 2px;
-  height: fit-content;
+  grid-template-columns: repeat(3, 1fr);
+  width: fit-content;
+  grid-gap: 5px;
 `;
 
 const CounterButton = styled.button`
-  width: fit-content;
   background-color: inherit;
   border: 1px solid rgba(0, 0, 0, 0.2);
   padding: 0 5px;
@@ -38,5 +35,7 @@ const CounterButton = styled.button`
 
 const ProductsCount = styled.span`
   font-size: 20px;
-  padding: 0 5px;
+  font-weight: bolder;
+  text-align: center;
+  padding: 5px 10px;
 `;

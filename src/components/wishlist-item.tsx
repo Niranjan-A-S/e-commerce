@@ -1,3 +1,4 @@
+import { memo } from "react";
 import styled from "styled-components";
 import { IWishListItem } from "../types";
 
@@ -5,7 +6,7 @@ interface IWishListItemProps {
   item: IWishListItem;
 }
 
-export const WishListItem = (props: IWishListItemProps) => {
+export const WishListItem = memo((props: IWishListItemProps) => {
   const {
     item: { name, image, stockLeft },
   } = props;
@@ -16,7 +17,7 @@ export const WishListItem = (props: IWishListItemProps) => {
       {!stockLeft && <ItemStatus>Currently Unavailable</ItemStatus>}
     </WishListItemWrapper>
   );
-};
+});
 
 const WishListItemWrapper = styled.div`
   display: grid;

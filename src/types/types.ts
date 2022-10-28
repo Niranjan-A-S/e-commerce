@@ -14,21 +14,13 @@ export interface ICartItem
   quantity: number;
 }
 
-export interface ICart {
-  id: number;
-  quantity: number;
-}
 export interface IWishListItem
   extends Omit<IProduct, "price" | "description" | "stock"> {}
 
-export interface IProductStock {
-  id: number;
-  quantity: number;
-}
 export interface ICustomer {
   id: number;
   name: string;
-  wishlist: Array<any>;
+  wishlist: Array<number>;
   cart: Array<ICartItem>;
 }
 
@@ -42,7 +34,7 @@ export interface IOption {
   value: string;
 }
 
-export interface IPayLoadItem {
-  checked: boolean;
-  item: ICartItem;
+export interface ICartItemUpdate {
+  id: number;
+  event: boolean;
 }

@@ -2,9 +2,13 @@ import { useCallback, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import styled from "styled-components";
 import { ProductItem } from "../components";
-import { itemToggledToWishList } from "../redux/features/customer";
+import {
+  itemAddedToCart,
+  itemToggledToWishList,
+} from "../redux/features/customer";
 import { fetchProducts, productStockUpdated } from "../redux/features/product";
 import { customUseSelector, StoreDispatch } from "../redux/store";
+import { ICartItem } from "../types";
 
 export const ProductsList = () => {
   const dispatch = useDispatch<StoreDispatch>();
@@ -23,8 +27,10 @@ export const ProductsList = () => {
   );
 
   const addToCart = useCallback(
-    (id: number) => {
+    (item: ICartItem) => {
+      const { id } = item;
       dispatch(productStockUpdated(id));
+      dispatch(itemAddedToCart(item));
     },
     [dispatch]
   );

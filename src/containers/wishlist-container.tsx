@@ -10,10 +10,6 @@ export const WishList = () => {
     product: { productList },
   } = customUseSelector((state) => state);
 
-  const wishlistArray = productList.filter((product) =>
-    wishlist.includes(product.id)
-  );
-
   const navigate = useNavigate();
   const navigateBack = () => navigate(-1);
 
@@ -21,9 +17,12 @@ export const WishList = () => {
     <WishListWrapper>
       <Title>WishList</Title>
       <WishListItemsWrapper>
-        {wishlistArray.map((item) => (
-          <WishListItem key={item.id} item={item} />
-        ))}
+        {productList.map(
+          (product) =>
+            wishlist.includes(product.id) && (
+              <WishListItem key={product.id} item={product} />
+            )
+        )}
       </WishListItemsWrapper>
       <FlyoutFooter navigateBack={navigateBack} />
     </WishListWrapper>
