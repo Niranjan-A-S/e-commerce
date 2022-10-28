@@ -38,6 +38,13 @@ export const productSlice = createSlice({
           : product
       );
     },
+    productStockRestored: (state, action: PayloadAction<number>) => {
+      state.productList = state.productList.map((product) =>
+        product.id === action.payload
+          ? { ...product, stockLeft: product.stock }
+          : product
+      );
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(fetchProducts.pending, (state) => {
@@ -61,4 +68,5 @@ export const productSlice = createSlice({
 
 export const productReducer = productSlice.reducer;
 
-export const { productStockUpdated } = productSlice.actions;
+export const { productStockUpdated, productStockRestored } =
+  productSlice.actions;

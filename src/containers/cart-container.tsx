@@ -4,8 +4,14 @@ import { useNavigate } from "react-router";
 import styled from "styled-components";
 import { CartItem } from "../components";
 import { FlyoutFooter } from "../components/flyout-footer";
-import { cartItemUpdated } from "../redux/features/customer";
-import { productStockUpdated } from "../redux/features/product";
+import {
+  cartItemUpdated,
+  itemRemovedFromCart,
+} from "../redux/features/customer";
+import {
+  productStockRestored,
+  productStockUpdated,
+} from "../redux/features/product";
 import { customUseSelector, StoreDispatch } from "../redux/store";
 
 export const Cart = () => {
@@ -39,6 +45,14 @@ export const Cart = () => {
     [dispatch]
   );
 
+  const deleteItem = useCallback(
+    (id: number) => {
+      dispatch(itemRemovedFromCart(id));
+      dispatch(productStockRestored(id));
+    },
+    [dispatch]
+  );
+
   const totalPrice = useMemo(() => {
     return cart.reduce((acc, item) => acc + item.quantity * item.price, 0);
   }, [cart]);
@@ -57,6 +71,7 @@ export const Cart = () => {
             item={item}
             incrementQuantity={incrementQuantity}
             decrementQuantity={decrementQuantity}
+            deleteItem={deleteItem}
           />
         ))}
       </CartItemsWrapper>

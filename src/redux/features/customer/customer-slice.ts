@@ -47,16 +47,21 @@ const customerSlice = createSlice({
         item.id === action.payload.id
           ? action.payload.event
             ? { ...item, quantity: item.quantity + 1 }
-            : item.quantity
-            ? { ...item, quantity: item.quantity - 1 }
-            : item
+            : { ...item, quantity: item.quantity - 1 }
           : item
       );
+    },
+    itemRemovedFromCart: (state, action: PayloadAction<number>) => {
+      state.cart = state.cart.filter((item) => item.id !== action.payload);
     },
   },
 });
 
 export const customerReducer = customerSlice.reducer;
 
-export const { itemToggledToWishList, itemAddedToCart, cartItemUpdated } =
-  customerSlice.actions;
+export const {
+  itemToggledToWishList,
+  itemAddedToCart,
+  cartItemUpdated,
+  itemRemovedFromCart,
+} = customerSlice.actions;
