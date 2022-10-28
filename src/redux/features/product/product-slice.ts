@@ -28,26 +28,12 @@ export const productSlice = createSlice({
   name: "product",
   initialState,
   reducers: {
-    productStockDecreased: (state, action: PayloadAction<number>) => {
+    productStockUpdated: (state, action: PayloadAction<number>) => {
       state.productList = state.productList.map((product) =>
-        product.id === action.payload
-          ? { ...product, stockLeft: product.stockLeft - 1 }
-          : product
-      );
-    },
-    productStockIncreased: (state, action) => {
-      state.productList = state.productList.map((product) =>
-        product.id === action.payload
-          ? { ...product, stockLeft: product.stockLeft + 1 }
-          : product
-      );
-    },
-    productStockUpdated: (state, action) => {
-      state.productList = state.productList.map((product) =>
-        product.id === action.payload
+        product.stockLeft && product.id === action.payload
           ? {
               ...product,
-              stockLeft: product.stock,
+              stockLeft: product.stockLeft - 1,
             }
           : product
       );
@@ -75,8 +61,4 @@ export const productSlice = createSlice({
 
 export const productReducer = productSlice.reducer;
 
-export const {
-  productStockDecreased,
-  productStockIncreased,
-  productStockUpdated,
-} = productSlice.actions;
+export const { productStockUpdated } = productSlice.actions;

@@ -1,56 +1,39 @@
 import { memo } from "react";
 import styled from "styled-components";
 import { ProductCounter } from ".";
+import { ICartItem } from "../types";
 
-interface IFlyoutItem {
-  item: any; //bug
-  incrementCount: (
-    id: number,
-    stock: number,
-    quantity: number,
-    stockLeft: number
-  ) => void;
-  decrementCount: (
-    id: number,
-    stock: number,
-    quantity: number,
-    stockLeft: number
-  ) => void;
-  deleteItem: (id: number) => void;
+interface ICartItemProps {
+  item: ICartItem;
 }
 
-export const FlyoutItem = memo((props: IFlyoutItem) => {
+export const CartItem = memo((props: ICartItemProps) => {
   const {
-    item: { image, name, stock, price, quantity, id, stockLeft },
-    incrementCount,
-    decrementCount,
-    deleteItem,
+    item: { image, name },
   } = props;
 
   return (
-    <FlyoutItemWrapper>
+    <CartItemWrapper>
       <ItemInfo>
         <ItemImage src={image} />
         <ItemName>{name}</ItemName>
       </ItemInfo>
       <ItemDetails>
         <ProductCounter
-          count={quantity}
-          incrementCount={() => incrementCount(id, stock, quantity, stockLeft)}
-          decrementCount={() => decrementCount(id, stock, quantity, stockLeft)}
+          count={0}
+          incrementCount={() => {}}
+          decrementCount={() => {}}
         />
-        <DeleteButton onClick={() => deleteItem(id)}>
-          Remove from Cart
-        </DeleteButton>
+        <DeleteButton onClick={() => {}}>Remove from Cart</DeleteButton>
         <ItemPrice>
-          Price : Rs. <strong>{price * quantity}</strong>
+          Price : Rs. <strong>price * quantity</strong>
         </ItemPrice>
       </ItemDetails>
-    </FlyoutItemWrapper>
+    </CartItemWrapper>
   );
 });
 
-const FlyoutItemWrapper = styled.div`
+const CartItemWrapper = styled.div`
   border: 1px solid rgba(0, 0, 0, 0.2);
   padding: 10px;
 `;
@@ -74,13 +57,6 @@ const ItemName = styled.span`
   font-weight: bold;
   font-size: 18px;
 `;
-
-// const ItemStatus = styled.span`
-//   justify-self: start;
-//   align-self: center;
-//   width: fit-content;
-//   opacity: 0.6;
-// `;
 
 const ItemDetails = styled.div`
   margin-top: 10px;

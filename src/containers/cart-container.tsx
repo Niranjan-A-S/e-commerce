@@ -1,80 +1,18 @@
-import { useCallback, useMemo } from "react";
-import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router";
 import styled from "styled-components";
-import { FlyoutItem } from "../components";
 import { FlyoutFooter } from "../components/flyout-footer";
-import {
-  itemQuantityDecreased,
-  itemQuantityIncreased,
-  itemRemovedFromCart,
-} from "../redux/features/customer";
-import {
-  productStockDecreased,
-  productStockIncreased,
-  productStockUpdated,
-} from "../redux/features/product";
-import { customUseSelector, StoreDispatch } from "../redux/store";
 
 export const Cart = () => {
-  const dispatch = useDispatch<StoreDispatch>();
-
-  const { cart } = customUseSelector((state) => state.customer);
-
   const navigate = useNavigate();
   const navigateBack = () => navigate(-1);
-
-  const numOfItems = useMemo(
-    () => cart.reduce((acc, item) => acc + item.quantity, 0),
-    [cart]
-  );
-
-  const totalPrice = useMemo(
-    () => cart.reduce((acc, item) => item.price * item.quantity + acc, 0),
-    [cart]
-  );
-
-  const increaseQuantity = useCallback(
-    (id: number, stock: number, quantity: number, stockLeft: number) => {
-      quantity < stock &&
-        dispatch(productStockDecreased(id)) &&
-        dispatch(itemQuantityIncreased(id));
-    },
-    [dispatch]
-  );
-
-  const decreaseQuantity = useCallback(
-    (id: number, stock: number, quantity: number, stockLeft: number) =>
-      quantity > 0 &&
-      dispatch(productStockIncreased(id)) &&
-      dispatch(itemQuantityDecreased(id)),
-    [dispatch]
-  );
-
-  const deleteItem = useCallback(
-    (id: number) => {
-      dispatch(itemRemovedFromCart(id)) && dispatch(productStockUpdated(id));
-    },
-    [dispatch]
-  );
 
   return (
     <CartWrapper>
       <Title>Cart</Title>
-      <CartItemsWrapper>
-        {cart.map((item) => (
-          <FlyoutItem
-            key={item.id}
-            item={item}
-            incrementCount={increaseQuantity}
-            decrementCount={decreaseQuantity}
-            deleteItem={deleteItem}
-          />
-        ))}
-      </CartItemsWrapper>
+      <CartItemsWrapper></CartItemsWrapper>
       <Checkout>
-        Total Price : <strong>Rs {totalPrice}</strong>
-        Number of items : <strong>{numOfItems}</strong>
+        Total Price : <strong>Rs totalPrice</strong>
+        Number of items : <strong>numOfItems</strong>
       </Checkout>
       <FlyoutFooter navigateBack={navigateBack} />
     </CartWrapper>

@@ -9,16 +9,26 @@ export interface IProduct {
   id: number;
   stockLeft: number;
 }
-export interface ICartItem extends Omit<IProduct, "description"> {
+export interface ICartItem
+  extends Omit<IProduct, "description" | "stock" | "stockLeft"> {
   quantity: number;
 }
 
+export interface ICart {
+  id: number;
+  quantity: number;
+}
 export interface IWishListItem
-  extends Omit<IProduct, "price" | "description" | "stockLeft"> {}
+  extends Omit<IProduct, "price" | "description" | "stock"> {}
+
+export interface IProductStock {
+  id: number;
+  quantity: number;
+}
 export interface ICustomer {
   id: number;
   name: string;
-  wishlist: Array<number>;
+  wishlist: Array<any>;
   cart: Array<ICartItem>;
 }
 

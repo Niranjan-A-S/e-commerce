@@ -1,4 +1,6 @@
+import { useCallback } from "react";
 import styled from "styled-components";
+import { customUseSelector } from "../redux/store";
 import { IWishListItem } from "../types";
 
 interface IWishListItemProps {
@@ -6,14 +8,24 @@ interface IWishListItemProps {
 }
 
 export const WishListItem = (props: IWishListItemProps) => {
+  const { productList } = customUseSelector((state) => state.product);
+
+  const inStock = useCallback(
+    (id: number) => {
+      const product = productList.find((product) => product.id === id);
+      return product?.stockLeft;
+    },
+    [productList]
+  );
+
   const {
-    item: { name, image, stock },
+    item: { name, image },
   } = props;
   return (
     <WishListItemWrapper>
       <ItemImage src={image} />
       <ItemName>{name}</ItemName>
-      {!stock && <ItemStatus>Currently Unavailable</ItemStatus>}
+      {!inStock && <ItemStatus>Currently Unavailable</ItemStatus>}
     </WishListItemWrapper>
   );
 };

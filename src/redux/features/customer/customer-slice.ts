@@ -1,4 +1,4 @@
-import { ICartItem } from "./../../../types/types";
+import { ICart } from "./../../../types/types";
 import { ICustomer } from "../../../types/types";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
@@ -26,66 +26,17 @@ const customerSlice = createSlice({
   name: "customer",
   initialState,
   reducers: {
-    itemAddedToWishList: (state, action: PayloadAction<number>) => {
-      state.wishlist = [...state.wishlist, action.payload];
+    itemToggledToWishList: (state, action: PayloadAction<number>) => {
+      state.wishlist = !state.wishlist.includes(action.payload)
+        ? [...state.wishlist, action.payload]
+        : state.wishlist.filter((id) => id !== action.payload);
     },
-
-    itemRemovedFromWishList: (state, action: PayloadAction<number>) => {
-      state.wishlist = state.wishlist.filter((id) => id !== action.payload);
-    },
-
-    itemAddedToCart: (state, action: PayloadAction<ICartItem>) => {
-      state.cart = !state.cart.includes(action.payload)
-        ? [
-            {
-              ...action.payload,
-              quantity: action.payload.quantity + 1,
-              stockLeft: action.payload.stockLeft - 1,
-            },
-          ]
-        : [
-            ...state.cart,
-            {
-              ...action.payload,
-              stockLeft: action.payload.stockLeft - 1,
-            },
-          ];
-    },
-    itemRemovedFromCart: (state, action: PayloadAction<number>) => {
-      state.cart = state.cart.filter((item) => item.id !== action.payload);
-    },
-    itemQuantityIncreased: (state, action) => {
-      state.cart = state.cart.map((item) =>
-        item.id === action.payload
-          ? {
-              ...item,
-              stockLeft: item.stockLeft--,
-              quantity: item.quantity + 1,
-            }
-          : item
-      );
-    },
-    itemQuantityDecreased: (state, action) => {
-      state.cart = state.cart.map((item) =>
-        item.id === action.payload
-          ? {
-              ...item,
-              stockLeft: item.stockLeft + 1,
-              quantity: item.quantity - 1,
-            }
-          : item
-      );
+    itemAddedToCart: (state, action: PayloadAction<ICart>) => {
+      state.cart = [];
     },
   },
 });
 
 export const customerReducer = customerSlice.reducer;
 
-export const {
-  itemAddedToCart,
-  itemQuantityIncreased,
-  itemQuantityDecreased,
-  itemRemovedFromCart,
-  itemAddedToWishList,
-  itemRemovedFromWishList,
-} = customerSlice.actions;
+export const { itemToggledToWishList, itemAddedToCart } = customerSlice.actions;
