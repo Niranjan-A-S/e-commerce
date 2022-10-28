@@ -27,22 +27,32 @@ export const Cart = () => {
 
   const incrementQuantity = useCallback(
     (id: number, event: boolean) => {
-      const inStock = productList.some(
+      const productInStock = productList.some(
         (product) => product.id === id && product.stockLeft
       );
-      inStock &&
+      productInStock &&
         dispatch(cartItemUpdated({ id, event })) &&
         dispatch(productStockUpdated({ id, event: false }));
     },
     [dispatch, productList]
   );
 
+  const quantityCheck = useCallback(
+    (id: number) => {
+      return cart.some((item) => item.id === id && item.quantity === 1);
+    },
+    [cart]
+  );
+
   const decrementQuantity = useCallback(
     (id: number, event: boolean) => {
       dispatch(cartItemUpdated({ id, event }));
       dispatch(productStockUpdated({ id, event: true }));
+      quantityCheck(id) &&
+        dispatch(itemRemovedFromCart(id)) &&
+        dispatch(productStockRestored(id));
     },
-    [dispatch]
+    [dispatch, quantityCheck]
   );
 
   const deleteItem = useCallback(
