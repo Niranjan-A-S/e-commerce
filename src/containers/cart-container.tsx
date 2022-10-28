@@ -1,4 +1,4 @@
-import { useCallback } from "react";
+import { useCallback, useMemo } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router";
 import styled from "styled-components";
@@ -13,13 +13,17 @@ export const Cart = () => {
   const navigate = useNavigate();
   const navigateBack = () => navigate(-1);
 
-  const { cart } = customUseSelector((state) => state.customer);
+  const {
+    customer: { cart },
+    product: { productList },
+  } = customUseSelector((state) => state);
 
   const incrementQuantity = useCallback(
     (id: number, event: boolean) => {
+      console.log({ productList });
       dispatch(cartItemUpdated({ id, event }));
     },
-    [dispatch]
+    [dispatch, productList]
   );
 
   const decrementQuantity = useCallback(
@@ -28,6 +32,14 @@ export const Cart = () => {
     },
     [dispatch]
   );
+
+  const totalPrice = useMemo(() => {
+    return cart.reduce((acc, item) => acc + item.quantity * item.price, 0);
+  }, [cart]);
+
+  const numberOfItems = useMemo(() => {
+    return cart.reduce((acc, item) => acc + item.quantity, 0);
+  }, [cart]);
 
   return (
     <CartWrapper>
@@ -43,8 +55,8 @@ export const Cart = () => {
         ))}
       </CartItemsWrapper>
       <Checkout>
-        Total Price : <strong>Rs totalPrice</strong>
-        Number of items : <strong>numOfItems</strong>
+        Total Price : <strong>{totalPrice}</strong>
+        Number of items : <strong>{numberOfItems}</strong>
       </Checkout>
       <FlyoutFooter navigateBack={navigateBack} />
     </CartWrapper>

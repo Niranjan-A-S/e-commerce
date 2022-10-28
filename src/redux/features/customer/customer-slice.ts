@@ -35,16 +35,21 @@ const customerSlice = createSlice({
         ? [...state.cart, action.payload]
         : state.cart.map((item) =>
             item.id === action.payload.id
-              ? { ...item, quantity: item.quantity + 1 }
+              ? {
+                  ...item,
+                  quantity: item.quantity + 1,
+                }
               : item
           );
     },
     cartItemUpdated: (state, action: PayloadAction<ICartItemUpdate>) => {
       state.cart = state.cart.map((item) =>
-        item.id === action.payload.id && item.quantity
+        item.id === action.payload.id
           ? action.payload.event
             ? { ...item, quantity: item.quantity + 1 }
-            : { ...item, quantity: item.quantity - 1 }
+            : item.quantity
+            ? { ...item, quantity: item.quantity - 1 }
+            : item
           : item
       );
     },
