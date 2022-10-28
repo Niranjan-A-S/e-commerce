@@ -3,7 +3,6 @@ import styled from "styled-components";
 
 import { IProduct } from "../types";
 import { ImageSources } from "../enums";
-import { InStock, outOfStock } from "../styles";
 
 interface IProductProps {
   product: IProduct;
@@ -33,11 +32,10 @@ export const ProductItem = memo((props: IProductProps) => {
       </ProductInfo>
       <ProductTools>
         <ProductButton
-          style={!stockLeft ? outOfStock : InStock}
+          disabled={!stockLeft ? true : false}
           onClick={() => addToCart(id)}
-        >
-          Add to Cart
-        </ProductButton>
+          children={stockLeft ? "Add to Cart" : "Out of Stock"}
+        />
         <ProductButton
           onClick={() => {
             setChecked(!checked);
