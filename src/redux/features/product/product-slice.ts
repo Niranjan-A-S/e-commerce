@@ -29,6 +29,7 @@ export const productSlice = createSlice({
   name: "product",
   initialState,
   reducers: {
+    productsFetched: (state, action) => {},  
     productStockUpdated: (state, action: PayloadAction<IStockUpdate>) => {
       state.productList = state.productList.map((product) =>
         product.id === action.payload.id

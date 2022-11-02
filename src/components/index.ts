@@ -5,3 +5,4 @@ export * from "./flyout";
 export * from "./wishlist-item";
 export * from "./cart-item";
 export * from "./product-counter";
+export * from "./flyout-header";

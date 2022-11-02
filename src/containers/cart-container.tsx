@@ -1,9 +1,8 @@
 import { useCallback, useMemo } from "react";
 import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router";
 import styled from "styled-components";
 import { CartItem } from "../components";
-import { FlyoutFooter } from "../components/flyout-footer";
+import { FlyoutHeader } from "../components/flyout-header";
 import {
   cartItemUpdated,
   itemRemovedFromCart,
@@ -16,9 +15,6 @@ import { customUseSelector, StoreDispatch } from "../redux/store";
 
 export const Cart = () => {
   const dispatch = useDispatch<StoreDispatch>();
-
-  const navigate = useNavigate();
-  const navigateBack = () => navigate(-1);
 
   const {
     customer: { cart },
@@ -67,13 +63,9 @@ export const Cart = () => {
     return cart.reduce((acc, item) => acc + item.quantity * item.price, 0);
   }, [cart]);
 
-  const numberOfItems = useMemo(() => {
-    return cart.reduce((acc, item) => acc + item.quantity, 0);
-  }, [cart]);
-
   return (
     <CartWrapper>
-      <Title>Cart</Title>
+      <FlyoutHeader flyoutName={"Cart"} />
       <CartItemsWrapper>
         {cart.map((item) => (
           <CartItem
@@ -85,11 +77,7 @@ export const Cart = () => {
           />
         ))}
       </CartItemsWrapper>
-      <Checkout>
-        Total Price : <strong>{totalPrice}</strong>
-        Number of items : <strong>{numberOfItems}</strong>
-      </Checkout>
-      <FlyoutFooter navigateBack={navigateBack} />
+      <h2>Total Price: Rs.{totalPrice}</h2>
     </CartWrapper>
   );
 };
@@ -122,26 +110,8 @@ const CartWrapper = styled.div`
   }
 `;
 
-const Title = styled.span`
-  font-size: 50px;
-  font-weight: 100;
-  justify-self: start;
-  padding: 0 20px;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
-  width: 100%;
-  height: fit-content;
-`;
-
 const CartItemsWrapper = styled.div`
   height: fit-content;
   display: grid;
   grid-gap: 20px;
-`;
-
-const Checkout = styled.span`
-  border-top: 1px solid rgba(0, 0, 0, 0.2);
-  align-self: end;
-  margin-bottom: 10px;
-  display: grid;
-  grid-template-columns: 0.6fr 0.4fr;
 `;

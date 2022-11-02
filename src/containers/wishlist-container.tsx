@@ -1,7 +1,5 @@
-import { useNavigate } from "react-router";
 import styled from "styled-components";
-import { WishListItem } from "../components";
-import { FlyoutFooter } from "../components/flyout-footer";
+import { FlyoutHeader, WishListItem } from "../components";
 import { customUseSelector } from "../redux/store";
 
 export const WishList = () => {
@@ -10,12 +8,9 @@ export const WishList = () => {
     product: { productList },
   } = customUseSelector((state) => state);
 
-  const navigate = useNavigate();
-  const navigateBack = () => navigate(-1);
-
   return (
     <WishListWrapper>
-      <Title>WishList</Title>
+      <FlyoutHeader flyoutName={"Wishlist"} />
       <WishListItemsWrapper>
         {productList.map(
           (product) =>
@@ -24,7 +19,6 @@ export const WishList = () => {
             )
         )}
       </WishListItemsWrapper>
-      <FlyoutFooter navigateBack={navigateBack} />
     </WishListWrapper>
   );
 };
@@ -55,16 +49,6 @@ const WishListWrapper = styled.div`
       transform: translate(0);
     }
   }
-`;
-
-const Title = styled.span`
-  font-size: 50px;
-  font-weight: 100;
-  justify-self: start;
-  padding: 0 20px;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
-  width: 100%;
-  height: fit-content;
 `;
 
 const WishListItemsWrapper = styled.div`
