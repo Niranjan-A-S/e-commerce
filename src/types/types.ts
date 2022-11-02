@@ -1,5 +1,21 @@
 import { ChangeEventHandler } from "react";
 
+type key = keyof IProducts;
+
+interface IProducts {
+  string: IProductItem;
+}
+
+interface IProductItem {
+  name: string;
+  image: string;
+  description: string;
+  price: number;
+  stock: number;
+  stockLeft: number;
+}
+
+/////////////////////////////
 export interface IProduct {
   image: string;
   name: string;
