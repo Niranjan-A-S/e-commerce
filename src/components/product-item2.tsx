@@ -1,27 +1,23 @@
 import { memo, useState } from "react";
 import styled from "styled-components";
 
-import { ICartItem, IProduct } from "../types";
 import { ImageSources } from "../enums";
+import { IProductItem } from "../types";
 
-interface IProductItemProps {
-  product: IProduct;
-  addToWishList(item: number): void;
-  addToCart(item: ICartItem): void;
+interface IProductItem2Props {
+  productItem: IProductItem;
 }
 
-export const ProductItem = memo((props: IProductItemProps) => {
+export const ProductItem2 = memo((props: IProductItem2Props) => {
   const [checked, setChecked] = useState<boolean>(false);
 
   const {
-    product: { id, price, image, name, description, stockLeft },
-    addToWishList,
-    addToCart,
+    productItem: { image, description, name, price, stockLeft },
   } = props;
 
   return (
     <ProductItemWrapper>
-      <ProductImage src={image} alt={"product-image"} />
+      <ProductImage src={image} />
       <ProductName children={name} />
       <ProductDescription children={description} />
       <ProductInfo>
@@ -33,18 +29,11 @@ export const ProductItem = memo((props: IProductItemProps) => {
       <ProductTools>
         <ProductButton
           disabled={!stockLeft ? true : false}
-          onClick={() => addToCart({ id, name, price, image, quantity: 1 })}
           children={stockLeft ? "Add to Cart" : "Out of Stock"}
         />
-        <ProductButton
-          onClick={() => {
-            setChecked(!checked);
-            addToWishList(id);
-          }}
-        >
+        <ProductButton onClick={() => setChecked(!checked)}>
           <WishListIcon
             src={checked ? ImageSources.WISHLIST_RED : ImageSources.WISHLIST}
-            alt="heart-logo"
           />
         </ProductButton>
       </ProductTools>

@@ -1,6 +1,6 @@
 import { useCallback, useMemo } from "react";
 import { Outlet, useNavigate } from "react-router";
-import { ProductsList } from ".";
+import { ProductsList2 } from ".";
 import { Navbar } from "../components";
 import { CustomerNames } from "../enums";
 import { customUseSelector } from "../redux/store";
@@ -32,7 +32,8 @@ export const HomeContainer = () => {
         wishListItemsCount={wishlist.length}
         cartItemsCount={cart.length}
       />
-      <ProductsList />
+      {/* <ProductsList /> */}
+      <ProductsList2 />
       <Outlet />
     </>
   );

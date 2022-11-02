@@ -6,3 +6,4 @@ export * from "./wishlist-item";
 export * from "./cart-item";
 export * from "./product-counter";
 export * from "./flyout-header";
+export * from "./product-item2";
