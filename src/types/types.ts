@@ -14,22 +14,13 @@ export interface IProductItem {
   stockLeft: number;
 }
 
-export interface IProduct {
-  image: string;
-  name: string;
-  description: string;
-  price: number;
-  stock: number;
-  id: number;
-  stockLeft: number;
-}
 export interface ICartItem
-  extends Omit<IProduct, "description" | "stock" | "stockLeft"> {
+  extends Omit<IProductItem, "description" | "stock" | "stockLeft"> {
   quantity: number;
 }
 
 export interface IWishListItem
-  extends Omit<IProduct, "price" | "description" | "stock"> {}
+  extends Omit<IProductItem, "price" | "description" | "stock"> {}
 
 export interface ICustomer {
   id: number;

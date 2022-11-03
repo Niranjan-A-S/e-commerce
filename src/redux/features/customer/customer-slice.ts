@@ -1,5 +1,5 @@
-import { ICartItem, ICartItemUpdate, ICustomer } from "../../../types/types";
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { ICustomer } from "../../../types/types";
+import { createSlice } from "@reduxjs/toolkit";
 
 export const initialState: ICustomer = {
   id: 1,
@@ -25,43 +25,8 @@ const customerSlice = createSlice({
   name: "customer",
   initialState,
   reducers: {
-    itemToggledToWishList: (state, action: PayloadAction<number>) => {
-      state.wishlist = !state.wishlist.includes(action.payload)
-        ? [...state.wishlist, action.payload]
-        : state.wishlist.filter((id) => id !== action.payload);
-    },
-    itemAddedToCart: (state, action: PayloadAction<ICartItem>) => {
-      state.cart = !state.cart.some((item) => item.id === action.payload.id)
-        ? [...state.cart, action.payload]
-        : state.cart.map((item) =>
-            item.id === action.payload.id
-              ? {
-                  ...item,
-                  quantity: item.quantity + 1,
-                }
-              : item
-          );
-    },
-    cartItemUpdated: (state, action: PayloadAction<ICartItemUpdate>) => {
-      state.cart = state.cart.map((item) =>
-        item.id === action.payload.id
-          ? action.payload.event
-            ? { ...item, quantity: item.quantity + 1 }
-            : { ...item, quantity: item.quantity - 1 }
-          : item
-      );
-    },
-    itemRemovedFromCart: (state, action: PayloadAction<number>) => {
-      state.cart = state.cart.filter((item) => item.id !== action.payload);
-    },
+    itemToggledToWishList: () => {},
   },
 });
 
 export const customerReducer = customerSlice.reducer;
-
-export const {
-  itemToggledToWishList,
-  itemAddedToCart,
-  cartItemUpdated,
-  itemRemovedFromCart,
-} = customerSlice.actions;

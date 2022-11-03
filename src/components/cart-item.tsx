@@ -5,17 +5,11 @@ import { ICartItem } from "../types";
 
 interface ICartItemProps {
   item: ICartItem;
-  incrementQuantity(id: number, event: boolean): void;
-  decrementQuantity(id: number, event: boolean): void;
-  deleteItem(id: number): void;
 }
 
 export const CartItem = memo((props: ICartItemProps) => {
   const {
-    item: { id, image, name, quantity, price },
-    decrementQuantity,
-    incrementQuantity,
-    deleteItem,
+    item: { image, name, quantity, price },
   } = props;
 
   return (
@@ -27,12 +21,10 @@ export const CartItem = memo((props: ICartItemProps) => {
       <ItemDetails>
         <ProductCounter
           count={quantity}
-          incrementCount={() => incrementQuantity(id, true)}
-          decrementCount={() => decrementQuantity(id, false)}
+          incrementCount={() => {}}
+          decrementCount={() => {}}
         />
-        <DeleteButton onClick={() => deleteItem(id)}>
-          Remove from Cart
-        </DeleteButton>
+        <DeleteButton>Remove from Cart</DeleteButton>
         <ItemPrice>
           Price : Rs. <strong>{price * quantity}</strong>
         </ItemPrice>
