@@ -2,7 +2,7 @@ import { useCallback } from "react";
 import styled from "styled-components";
 import { useAppDispatch, useAppSelector } from "../app";
 import { ProductItem } from "../components";
-import { itemToggledToWishList, itemAddedToCart } from "../features/customer";
+import { itemAddedToCart, itemToggledToWishList } from "../features";
 import { productStockUpdated } from "../features/products";
 import { ICartItem } from "../types";
 
