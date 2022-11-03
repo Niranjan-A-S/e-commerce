@@ -1,30 +1,5 @@
 import { ChangeEventHandler } from "react";
 
-export interface IProductStore {
-  products: IProducts;
-}
-
-export interface IProducts {
-  a11: IProductItem;
-  a12: IProductItem;
-  a13: IProductItem;
-  a14: IProductItem;
-  a15: IProductItem;
-  a16: IProductItem;
-  a17: IProductItem;
-  a18: IProductItem;
-}
-
-export interface IProductItem {
-  name: string;
-  image: string;
-  description: string;
-  price: number;
-  stock: number;
-  stockLeft: number;
-}
-
-/////////////////////////////
 export interface IProduct {
   image: string;
   name: string;
