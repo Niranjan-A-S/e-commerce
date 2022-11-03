@@ -1,23 +1,25 @@
 import { memo, useCallback } from "react";
 import styled from "styled-components";
 
-import { IProductItem } from "../types";
+import { ICartItem, IProductItem } from "../types";
 import { ImageSources } from "../enums";
-import { customUseSelector } from "../redux/store";
+import { useAppSelector } from "../app";
 
 interface IProductItemProps {
   productItem: IProductItem;
   productID: string;
   toggleItemToWishList(productID: string): void;
+  addToCart(cartItem: ICartItem): void;
 }
 
 export const ProductItem = memo((props: IProductItemProps) => {
-  const { wishlist } = customUseSelector((state) => state.customer);
+  const { wishlist } = useAppSelector((state) => state.customer);
 
   const {
     productItem: { description, image, name, price, stockLeft },
     productID,
     toggleItemToWishList,
+    addToCart,
   } = props;
 
   const itemInWishList = useCallback(
@@ -42,6 +44,9 @@ export const ProductItem = memo((props: IProductItemProps) => {
         <ProductButton
           disabled={!stockLeft ? true : false}
           children={stockLeft ? "Add to Cart" : "Out of Stock"}
+          onClick={() =>
+            addToCart({ name, image, price, quantity: 1, productID })
+          }
         />
         <ProductButton
           onClick={() => {

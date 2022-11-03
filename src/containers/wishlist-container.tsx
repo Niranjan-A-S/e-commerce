@@ -1,24 +1,21 @@
 import styled from "styled-components";
+import { useAppSelector } from "../app";
 import { FlyoutHeader, WishListItem } from "../components";
-import { customUseSelector } from "../redux/store";
 
 export const WishList = () => {
   const {
-    product: { products },
+    products,
     customer: { wishlist },
-  } = customUseSelector((state) => state);
+  } = useAppSelector((state) => state);
 
   return (
     <WishListWrapper>
       <FlyoutHeader flyoutName={"Wishlist"} />
       <WishListItemsWrapper>
         {Object.entries(products).map(
-          (productItem) =>
-            wishlist.includes(productItem[0]) && (
-              <WishListItem
-                key={productItem[0]}
-                wishListItem={productItem[1]}
-              />
+          ([productID, productItem]) =>
+            wishlist.includes(productID) && (
+              <WishListItem key={productID} wishListItem={productItem} />
             )
         )}
       </WishListItemsWrapper>

@@ -1,26 +1,40 @@
-import { useDispatch } from "react-redux";
+import { useCallback } from "react";
 import styled from "styled-components";
+import { useAppDispatch, useAppSelector } from "../app";
 import { ProductItem } from "../components";
-import { itemToggledToWishList } from "../redux/features/customer";
-import { customUseSelector, StoreDispatch } from "../redux/store";
+import { itemToggledToWishList, itemAddedToCart } from "../features/customer";
+import { productStockUpdated } from "../features/products";
+import { ICartItem } from "../types";
 
 export const ProductsList = () => {
-  const dispatch = useDispatch<StoreDispatch>();
+  const dispatch = useAppDispatch();
 
-  const { products } = customUseSelector((state) => state.product);
+  const { products } = useAppSelector((state) => state);
 
-  const toggleItemToWishList = (productID: string) => {
-    dispatch(itemToggledToWishList(productID));
-  };
+  const toggleItemToWishList = useCallback(
+    (productID: string) => {
+      dispatch(itemToggledToWishList(productID));
+    },
+    [dispatch]
+  );
+
+  const addToCart = useCallback(
+    (cartItem: ICartItem) => {
+      dispatch(itemAddedToCart(cartItem));
+      dispatch(productStockUpdated(cartItem.productID));
+    },
+    [dispatch]
+  );
 
   return (
     <ProductsListWrapper>
-      {Object.entries(products).map((productItem) => (
+      {Object.entries(products).map(([productID, productItem]) => (
         <ProductItem
-          key={productItem[0]}
-          productID={productItem[0]}
-          productItem={productItem[1]}
+          key={productID}
+          productID={productID}
+          productItem={productItem}
           toggleItemToWishList={toggleItemToWishList}
+          addToCart={addToCart}
         />
       ))}
     </ProductsListWrapper>

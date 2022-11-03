@@ -3,12 +3,12 @@ import { Outlet, useNavigate } from "react-router";
 import { ProductsList } from ".";
 import { Navbar } from "../components";
 import { CustomerNames } from "../enums";
-import { customUseSelector } from "../redux/store";
+import { useAppSelector } from "../app";
 
 export const HomeContainer = () => {
   const navigate = useNavigate();
 
-  const { name, wishlist, cart } = customUseSelector((state) => state.customer);
+  const { name, wishlist, cart } = useAppSelector((state) => state.customer);
 
   const userNames = useMemo(
     () => [

@@ -1,5 +1,6 @@
-import { ICustomer } from "../../../types/types";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+
+import { ICartItem, ICustomer } from "../../types/types";
 
 export const initialState: ICustomer = {
   id: 1,
@@ -30,9 +31,19 @@ const customerSlice = createSlice({
         ? [...state.wishlist, action.payload]
         : state.wishlist.filter((id) => id !== action.payload);
     },
+    itemAddedToCart: (state, action: PayloadAction<ICartItem>) => {
+      state.cart = !state.cart.some(
+        (item) => item.productID === action.payload.productID
+      )
+        ? [...state.cart, action.payload]
+        : state.cart.map((item) =>
+            item.productID === action.payload.productID
+              ? { ...item, quantity: item.quantity + 1 }
+              : item
+          );
+    },
   },
 });
 
+export const { itemAddedToCart, itemToggledToWishList } = customerSlice.actions;
 export const customerReducer = customerSlice.reducer;
-
-export const { itemToggledToWishList } = customerSlice.actions;
