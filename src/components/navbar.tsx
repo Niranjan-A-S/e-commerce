@@ -1,8 +1,9 @@
 import { MouseEventHandler, memo } from "react";
 import styled from "styled-components";
+
+import { SelectField } from ".";
 import { ImageSources } from "../enums";
 import { IOption } from "../types";
-import { SelectField } from "./select-field";
 
 interface INavbar {
   customerName: string;

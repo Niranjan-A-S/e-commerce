@@ -1,5 +1,6 @@
 import { useCallback, useMemo } from "react";
 import { Outlet, useNavigate } from "react-router";
+
 import { ProductsList } from ".";
 import { Navbar } from "../components";
 import { CustomerNames } from "../enums";

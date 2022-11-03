@@ -1,8 +1,8 @@
 import { useMemo } from "react";
 import styled from "styled-components";
+
 import { useAppSelector } from "../app";
-import { CartItem } from "../components";
-import { FlyoutHeader } from "../components/flyout-header";
+import { CartItem, FlyoutHeader } from "../components";
 
 export const Cart = () => {
   const { cart } = useAppSelector((state) => state.customer);
