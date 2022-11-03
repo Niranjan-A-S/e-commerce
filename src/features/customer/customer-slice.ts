@@ -22,7 +22,7 @@ export const initialState: ICustomer = {
 //   wishlist: [],
 // }
 
-const customerSlice = createSlice({
+export const customerSlice = createSlice({
   name: "customer",
   initialState,
   reducers: {
@@ -45,5 +45,5 @@ const customerSlice = createSlice({
   },
 });
 
-export const { itemAddedToCart, itemToggledToWishList } = customerSlice.actions;
 export const customerReducer = customerSlice.reducer;
+export const { itemAddedToCart, itemToggledToWishList } = customerSlice.actions;

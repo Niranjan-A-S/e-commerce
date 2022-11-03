@@ -1,8 +1,6 @@
-import { TypedUseSelectorHook, useSelector } from "react-redux";
+import { customerReducer } from "../features/customer/customer-slice";
 import { configureStore } from "@reduxjs/toolkit";
-
-import { productReducer } from "../features/products/product-slice";
-import { customerReducer } from "../features/customer";
+import { productReducer } from "../features/products";
 
 export const store = configureStore({
   reducer: {
