@@ -1,27 +1,23 @@
 import { memo, useState } from "react";
 import styled from "styled-components";
 
-import { ICartItem, IProduct } from "../types";
+import { IProductItem } from "../types";
 import { ImageSources } from "../enums";
 
 interface IProductItemProps {
-  product: IProduct;
-  addToWishList(item: number): void;
-  addToCart(item: ICartItem): void;
+  productItem: IProductItem;
 }
 
 export const ProductItem = memo((props: IProductItemProps) => {
   const [checked, setChecked] = useState<boolean>(false);
 
   const {
-    product: { id, price, image, name, description, stockLeft },
-    addToWishList,
-    addToCart,
+    productItem: { description, image, name, price, stockLeft },
   } = props;
 
   return (
     <ProductItemWrapper>
-      <ProductImage src={image} alt={"product-image"} />
+      <ProductImage src={image} />
       <ProductName children={name} />
       <ProductDescription children={description} />
       <ProductInfo>
@@ -33,13 +29,11 @@ export const ProductItem = memo((props: IProductItemProps) => {
       <ProductTools>
         <ProductButton
           disabled={!stockLeft ? true : false}
-          onClick={() => addToCart({ id, name, price, image, quantity: 1 })}
           children={stockLeft ? "Add to Cart" : "Out of Stock"}
         />
         <ProductButton
           onClick={() => {
             setChecked(!checked);
-            addToWishList(id);
           }}
         >
           <WishListIcon
