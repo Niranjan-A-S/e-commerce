@@ -1,5 +1,5 @@
 import { ICustomer } from "../../../types/types";
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 export const initialState: ICustomer = {
   id: 1,
@@ -25,8 +25,14 @@ const customerSlice = createSlice({
   name: "customer",
   initialState,
   reducers: {
-    itemToggledToWishList: () => {},
+    itemToggledToWishList: (state, action: PayloadAction<string>) => {
+      state.wishlist = !state.wishlist.includes(action.payload)
+        ? [...state.wishlist, action.payload]
+        : state.wishlist.filter((id) => id !== action.payload);
+    },
   },
 });
 
 export const customerReducer = customerSlice.reducer;
+
+export const { itemToggledToWishList } = customerSlice.actions;

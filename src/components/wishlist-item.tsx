@@ -3,12 +3,12 @@ import styled from "styled-components";
 import { IWishListItem } from "../types";
 
 interface IWishListItemProps {
-  item: IWishListItem;
+  wishListItem: IWishListItem;
 }
 
 export const WishListItem = memo((props: IWishListItemProps) => {
   const {
-    item: { name, image, stockLeft },
+    wishListItem: { name, image, stockLeft },
   } = props;
   return (
     <WishListItemWrapper>

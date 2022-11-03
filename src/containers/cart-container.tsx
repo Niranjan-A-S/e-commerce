@@ -1,11 +1,19 @@
 import styled from "styled-components";
+import { CartItem } from "../components";
 import { FlyoutHeader } from "../components/flyout-header";
+import { customUseSelector } from "../redux/store";
 
 export const Cart = () => {
+  const { cart } = customUseSelector((state) => state.customer);
+
   return (
     <CartWrapper>
       <FlyoutHeader flyoutName={"Cart"} />
-      <CartItemsWrapper></CartItemsWrapper>
+      <CartItemsWrapper>
+        {cart.map((cartItem) => (
+          <CartItem cartItem={cartItem} />
+        ))}
+      </CartItemsWrapper>
       <h2>Total Price: Rs.totalPrice</h2>
     </CartWrapper>
   );

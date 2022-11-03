@@ -4,12 +4,12 @@ import { ProductCounter } from ".";
 import { ICartItem } from "../types";
 
 interface ICartItemProps {
-  item: ICartItem;
+  cartItem: ICartItem;
 }
 
 export const CartItem = memo((props: ICartItemProps) => {
   const {
-    item: { image, name, quantity, price },
+    cartItem: { image, name, quantity, price },
   } = props;
 
   return (

@@ -25,7 +25,7 @@ export interface IWishListItem
 export interface ICustomer {
   id: number;
   name: string;
-  wishlist: Array<number>;
+  wishlist: Array<string>;
   cart: Array<ICartItem>;
 }
 

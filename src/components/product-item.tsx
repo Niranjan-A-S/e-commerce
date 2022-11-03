@@ -1,19 +1,31 @@
-import { memo, useState } from "react";
+import { memo, useCallback } from "react";
 import styled from "styled-components";
 
 import { IProductItem } from "../types";
 import { ImageSources } from "../enums";
+import { customUseSelector } from "../redux/store";
 
 interface IProductItemProps {
   productItem: IProductItem;
+  productID: string;
+  toggleItemToWishList(productID: string): void;
 }
 
 export const ProductItem = memo((props: IProductItemProps) => {
-  const [checked, setChecked] = useState<boolean>(false);
+  const { wishlist } = customUseSelector((state) => state.customer);
 
   const {
     productItem: { description, image, name, price, stockLeft },
+    productID,
+    toggleItemToWishList,
   } = props;
+
+  const itemInWishList = useCallback(
+    (productID: string) => {
+      return wishlist.includes(productID);
+    },
+    [wishlist]
+  );
 
   return (
     <ProductItemWrapper>
@@ -33,12 +45,15 @@ export const ProductItem = memo((props: IProductItemProps) => {
         />
         <ProductButton
           onClick={() => {
-            setChecked(!checked);
+            toggleItemToWishList(productID);
           }}
         >
           <WishListIcon
-            src={checked ? ImageSources.WISHLIST_RED : ImageSources.WISHLIST}
-            alt="heart-logo"
+            src={
+              itemInWishList(productID)
+                ? ImageSources.WISHLIST_RED
+                : ImageSources.WISHLIST
+            }
           />
         </ProductButton>
       </ProductTools>
