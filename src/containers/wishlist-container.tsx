@@ -10,7 +10,7 @@ export const WishList = () => {
 
   const {
     products,
-    customer: { wishlist },
+    customer: { customerList, selectedCustomer },
   } = useAppSelector((state) => state);
 
   const removeItem = useCallback(
@@ -24,7 +24,7 @@ export const WishList = () => {
       <WishListItemsWrapper>
         {Object.entries(products).map(
           ([productID, productItem]) =>
-            wishlist.includes(productID) && (
+            customerList[selectedCustomer].wishlist.includes(productID) && (
               <WishListItem
                 key={productID}
                 wishListItem={{ ...productItem, productID }}

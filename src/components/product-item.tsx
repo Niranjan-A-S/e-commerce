@@ -13,7 +13,11 @@ interface IProductItemProps {
 }
 
 export const ProductItem = memo((props: IProductItemProps) => {
-  const { wishlist } = useAppSelector((state) => state.customer);
+  const {
+    customerList: {
+      c11: { wishlist },
+    },
+  } = useAppSelector((state) => state.customer);
 
   const {
     productItem: { description, image, name, price, stockLeft },

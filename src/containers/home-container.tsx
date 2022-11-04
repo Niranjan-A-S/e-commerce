@@ -3,21 +3,33 @@ import { Outlet, useNavigate } from "react-router";
 
 import { ProductsList } from ".";
 import { Navbar } from "../components";
-import { CustomerNames } from "../enums";
-import { useAppSelector } from "../app";
+import { useAppDispatch, useAppSelector } from "../app";
+import { customerChanged } from "../features/customer";
+import { CustomerID } from "../types";
 
 export const HomeContainer = () => {
+  const dispatch = useAppDispatch();
+
   const navigate = useNavigate();
 
-  const { name, wishlist, cart } = useAppSelector((state) => state.customer);
+  const {
+    customer: { selectedCustomer, customerList },
+  } = useAppSelector((state) => state);
 
-  const userNames = useMemo(
+  const userProfiles = useMemo(
     () => [
-      { label: CustomerNames.CUSTOMER_A, value: CustomerNames.CUSTOMER_A },
-      { label: CustomerNames.CUSTOMER_B, value: CustomerNames.CUSTOMER_B },
-      { label: CustomerNames.CUSTOMER_C, value: CustomerNames.CUSTOMER_C },
+      { name: "Customer A", customerID: "c11" },
+      { name: "Customer B", customerID: "c12" },
+      { name: "Customer C", customerID: "c13" },
     ],
     []
+  );
+
+  const changeCustomer = useCallback(
+    (customerID: CustomerID) => {
+      dispatch(customerChanged(customerID));
+    },
+    [dispatch]
   );
 
   const showWishList = useCallback(() => navigate("wishlist"), [navigate]);
@@ -26,12 +38,12 @@ export const HomeContainer = () => {
   return (
     <>
       <Navbar
-        customerName={name}
-        userNames={userNames}
         showWishList={showWishList}
         showCart={showCart}
-        wishListItemsCount={wishlist.length}
-        cartItemsCount={cart.length}
+        wishListItemsCount={customerList[selectedCustomer].wishlist.length}
+        cartItemsCount={customerList[selectedCustomer].cart.length}
+        customerProfiles={userProfiles}
+        changeCustomer={changeCustomer}
       />
       <ProductsList />
       <Outlet />

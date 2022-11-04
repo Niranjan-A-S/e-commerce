@@ -25,21 +25,22 @@ export interface IWishListItem
   productID: string;
 }
 
+export type ICustomers = {
+  customerList: Record<string, ICustomer>;
+  selectedCustomer: string;
+};
+
+export type CustomerID = "c11" | "c12" | "c13";
+
 export interface ICustomer {
-  id: number;
   name: string;
   wishlist: Array<string>;
   cart: Array<ICartItem>;
 }
 
-export interface ISelect {
-  options: Array<IOption>;
-  className?: string;
-  onChange?: ChangeEventHandler<HTMLSelectElement>;
-}
 export interface IOption {
-  label: string;
-  value: string;
+  name: string;
+  customerID: string;
 }
 
 export interface IItemUpdate {

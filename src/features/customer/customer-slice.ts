@@ -1,60 +1,68 @@
-import { IItemUpdate } from "./../../types/types";
+import { ICustomers, IItemUpdate } from "./../../types/types";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-import { ICartItem, ICustomer } from "../../types/types";
+import { ICartItem } from "../../types/types";
 
-export const initialState: ICustomer = {
-  id: 1,
-  name: "Roman Reigns",
-  cart: [],
-  wishlist: [],
+export const initialState: ICustomers = {
+  customerList: {
+    c11: {
+      name: "Customer A",
+      cart: [],
+      wishlist: [],
+    },
+    c12: {
+      name: "Customer B",
+      cart: [],
+      wishlist: [],
+    },
+    c13: {
+      name: "Customer C",
+      cart: [],
+      wishlist: [],
+    },
+  },
+  selectedCustomer: "c11",
 };
-// },
-// {
-//   id: 2,
-//   name: "Dean Ambros",
-//   cart: [],
-//   wishlist: [],
-// },
-// {
-//   id: 3,
-//   name: "Dean Ambros",
-//   cart: [],
-//   wishlist: [],
-// }
 
 export const customerSlice = createSlice({
   name: "customer",
   initialState,
   reducers: {
-    itemToggledToWishList: (state, action: PayloadAction<string>) => {
-      state.wishlist = !state.wishlist.includes(action.payload)
-        ? [...state.wishlist, action.payload]
-        : state.wishlist.filter((id) => id !== action.payload);
+    customerChanged: (customer, action: PayloadAction<string>) => {
+      customer.selectedCustomer = action.payload;
     },
-    itemAddedToCart: (state, action: PayloadAction<ICartItem>) => {
-      state.cart = !state.cart.some(
+    itemToggledToWishList: (customer, action: PayloadAction<string>) => {
+      customer.customerList.c11.wishlist =
+        !customer.customerList.c11.wishlist.includes(action.payload)
+          ? [...customer.customerList.c11.wishlist, action.payload]
+          : customer.customerList.c11.wishlist.filter(
+              (id) => id !== action.payload
+            );
+    },
+    itemAddedToCart: (customer, action: PayloadAction<ICartItem>) => {
+      customer.customerList.c11.cart = !customer.customerList.c11.cart.some(
         (item) => item.productID === action.payload.productID
       )
-        ? [...state.cart, action.payload]
-        : state.cart.map((item) =>
+        ? [...customer.customerList.c11.cart, action.payload]
+        : customer.customerList.c11.cart.map((item) =>
             item.productID === action.payload.productID
               ? { ...item, quantity: item.quantity + 1 }
               : item
           );
     },
-    itemRemovedFromCart: (state, action: PayloadAction<string>) => {
-      state.cart = state.cart.filter(
+    itemRemovedFromCart: (customer, action: PayloadAction<string>) => {
+      customer.customerList.c11.cart = customer.customerList.c11.cart.filter(
         (item) => item.productID !== action.payload
       );
     },
-    itemUpdatedInCart: (state, action: PayloadAction<IItemUpdate>) => {
-      state.cart = state.cart.map((item) =>
-        item.productID === action.payload.productID
-          ? action.payload.event
-            ? { ...item, quantity: item.quantity + 1 }
-            : { ...item, quantity: item.quantity - 1 }
-          : item
+    itemUpdatedInCart: (customer, action: PayloadAction<IItemUpdate>) => {
+      customer.customerList.c11.cart = customer.customerList.c11.cart.map(
+        (item) =>
+          item.productID === action.payload.productID
+            ? action.payload.event
+              ? { ...item, quantity: item.quantity + 1 }
+              : { ...item, quantity: item.quantity - 1 }
+            : item
       );
     },
   },
@@ -66,4 +74,5 @@ export const {
   itemToggledToWishList,
   itemRemovedFromCart,
   itemUpdatedInCart,
+  customerChanged,
 } = customerSlice.actions;
