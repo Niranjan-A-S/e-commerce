@@ -98,14 +98,15 @@ const CartWrapper = styled.div`
 
 const CartItemsWrapper = styled.div`
   height: 560px;
-  display: grid;
-  grid-gap: 20px;
-  overflow-y: scroll;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 `;
 
 const TotalPrice = styled.span`
   align-self: end;
   font-size: 30px;
   border-top: 1px solid rgba(0, 0, 0, 0.3);
-  padding: 10px;
+  padding: 30px 10px;
 `;

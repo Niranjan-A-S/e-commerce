@@ -16,9 +16,7 @@ export const ProductCounter = memo((props: IProductCounter) => {
 
   return (
     <ProductCounterWrapper>
-      <CounterButton onClick={decrementCount} disabled={!count}>
-        -
-      </CounterButton>
+      <CounterButton onClick={decrementCount}>-</CounterButton>
       <ProductsCount>{count}</ProductsCount>
       <CounterButton
         onClick={incrementCount}

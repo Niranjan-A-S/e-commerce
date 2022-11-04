@@ -46,6 +46,7 @@ export const CartItem = memo((props: ICartItemProps) => {
 const CartItemWrapper = styled.div`
   border: 1px solid rgba(0, 0, 0, 0.2);
   padding: 10px;
+  height: fit-content;
 `;
 
 const ItemInfo = styled.div`

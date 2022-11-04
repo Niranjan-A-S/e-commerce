@@ -21,7 +21,9 @@ export interface ICartItem
 }
 
 export interface IWishListItem
-  extends Omit<IProductItem, "price" | "description" | "stock"> {}
+  extends Omit<IProductItem, "price" | "description" | "stock"> {
+  productID: string;
+}
 
 export interface ICustomer {
   id: number;

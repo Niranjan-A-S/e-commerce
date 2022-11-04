@@ -1,13 +1,22 @@
+import { useCallback } from "react";
 import styled from "styled-components";
 
-import { useAppSelector } from "../app";
+import { useAppDispatch, useAppSelector } from "../app";
 import { FlyoutHeader, WishListItem } from "../components";
+import { itemToggledToWishList } from "../features/customer";
 
 export const WishList = () => {
+  const dispatch = useAppDispatch();
+
   const {
     products,
     customer: { wishlist },
   } = useAppSelector((state) => state);
+
+  const removeItem = useCallback(
+    (productID: string) => dispatch(itemToggledToWishList(productID)),
+    [dispatch]
+  );
 
   return (
     <WishListWrapper>
@@ -16,7 +25,11 @@ export const WishList = () => {
         {Object.entries(products).map(
           ([productID, productItem]) =>
             wishlist.includes(productID) && (
-              <WishListItem key={productID} wishListItem={productItem} />
+              <WishListItem
+                key={productID}
+                wishListItem={{ ...productItem, productID }}
+                removeItem={removeItem}
+              />
             )
         )}
       </WishListItemsWrapper>
