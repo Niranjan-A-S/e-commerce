@@ -40,11 +40,7 @@ export interface IOption {
   value: string;
 }
 
-export interface ICartItemUpdate {
-  id: number;
-  event: boolean;
-}
-export interface IStockUpdate {
-  id: number;
+export interface IItemUpdate {
+  productID: string;
   event: boolean;
 }

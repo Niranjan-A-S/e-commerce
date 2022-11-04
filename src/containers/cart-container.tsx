@@ -1,15 +1,51 @@
-import { useMemo } from "react";
+import { useCallback, useMemo } from "react";
 import styled from "styled-components";
 
-import { useAppSelector } from "../app";
+import { useAppDispatch, useAppSelector } from "../app";
 import { CartItem, FlyoutHeader } from "../components";
+import { itemRemovedFromCart, itemUpdatedInCart } from "../features/customer";
+import {
+  productStockRestored,
+  productStockUpdated,
+} from "../features/products";
 
 export const Cart = () => {
-  const { cart } = useAppSelector((state) => state.customer);
+  const dispatch = useAppDispatch();
+
+  const {
+    customer: { cart },
+    products,
+  } = useAppSelector((state) => state);
 
   const totalPrice = useMemo(
     () => cart.reduce((acc, item) => acc + item.price * item.quantity, 0),
     [cart]
+  );
+
+  const quantityIncreased = useCallback(
+    (productID: string) => {
+      dispatch(itemUpdatedInCart({ productID, event: true }));
+      dispatch(productStockUpdated({ productID, event: false }));
+    },
+    [dispatch]
+  );
+
+  const removeItem = useCallback(
+    (productID: string) => {
+      dispatch(itemRemovedFromCart(productID));
+      dispatch(productStockRestored(productID));
+    },
+    [dispatch]
+  );
+
+  const quantityDecreased = useCallback(
+    (productID: string) => {
+      dispatch(itemUpdatedInCart({ productID, event: false }));
+      dispatch(productStockUpdated({ productID, event: true }));
+      products[productID].stockLeft === products[productID].stock - 1 &&
+        removeItem(productID);
+    },
+    [dispatch, products, removeItem]
   );
 
   return (
@@ -17,7 +53,13 @@ export const Cart = () => {
       <FlyoutHeader flyoutName={"Cart"} />
       <CartItemsWrapper>
         {cart.map((cartItem) => (
-          <CartItem key={cartItem.productID} cartItem={cartItem} />
+          <CartItem
+            key={cartItem.productID}
+            cartItem={cartItem}
+            removeItem={removeItem}
+            quantityDecreased={quantityDecreased}
+            quantityIncreased={quantityIncreased}
+          /> //Look for an alternative approach
         ))}
       </CartItemsWrapper>
       <TotalPrice>

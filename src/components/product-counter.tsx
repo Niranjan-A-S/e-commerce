@@ -1,20 +1,31 @@
 import { memo, MouseEventHandler } from "react";
 import styled from "styled-components";
+import { useAppSelector } from "../app";
 
 interface IProductCounter {
   count: number;
+  productID: string;
   incrementCount: MouseEventHandler;
   decrementCount: MouseEventHandler;
 }
 
 export const ProductCounter = memo((props: IProductCounter) => {
-  const { count, incrementCount, decrementCount } = props;
+  const { products } = useAppSelector((state) => state);
+
+  const { count, incrementCount, decrementCount, productID } = props;
 
   return (
     <ProductCounterWrapper>
-      <CounterButton onClick={decrementCount}>-</CounterButton>
+      <CounterButton onClick={decrementCount} disabled={!count}>
+        -
+      </CounterButton>
       <ProductsCount>{count}</ProductsCount>
-      <CounterButton onClick={incrementCount}>+</CounterButton>
+      <CounterButton
+        onClick={incrementCount}
+        disabled={count === products[productID].stock}
+      >
+        +
+      </CounterButton>
     </ProductCounterWrapper>
   );
 });

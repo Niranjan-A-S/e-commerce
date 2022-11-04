@@ -21,8 +21,9 @@ export const ProductsList = () => {
 
   const addToCart = useCallback(
     (cartItem: ICartItem) => {
+      const { productID } = cartItem;
       dispatch(itemAddedToCart(cartItem));
-      dispatch(productStockUpdated(cartItem.productID));
+      dispatch(productStockUpdated({ productID, event: false }));
     },
     [dispatch]
   );
