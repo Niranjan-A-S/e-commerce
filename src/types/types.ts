@@ -30,8 +30,6 @@ export type ICustomers = {
   selectedCustomer: string;
 };
 
-export type CustomerID = "c11" | "c12" | "c13";
-
 export interface ICustomer {
   name: string;
   wishlist: Array<string>;
@@ -46,4 +44,25 @@ export interface IOption {
 export interface IItemUpdate {
   productID: string;
   event: boolean;
+}
+
+export interface ICartItemUpdate {
+  productID: string;
+  event: boolean;
+  selectedCustomer: string;
+}
+
+export interface IPayloadItem {
+  productID: string;
+  selectedCustomer: string;
+}
+
+export interface IPayloadCartItem {
+  cartItem: ICartItem;
+  selectedCustomer: string;
+}
+
+export interface IPayloadProduct {
+  productID: string;
+  quantity: number;
 }

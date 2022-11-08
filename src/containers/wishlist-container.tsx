@@ -14,8 +14,9 @@ export const WishList = () => {
   } = useAppSelector((state) => state);
 
   const removeItem = useCallback(
-    (productID: string) => dispatch(itemToggledToWishList(productID)),
-    [dispatch]
+    (productID: string) =>
+      dispatch(itemToggledToWishList({ productID, selectedCustomer })),
+    [dispatch, selectedCustomer]
   );
 
   return (

@@ -5,7 +5,6 @@ import { ProductsList } from ".";
 import { Navbar } from "../components";
 import { useAppDispatch, useAppSelector } from "../app";
 import { customerChanged } from "../features/customer";
-import { CustomerID } from "../types";
 
 export const HomeContainer = () => {
   const dispatch = useAppDispatch();
@@ -26,7 +25,7 @@ export const HomeContainer = () => {
   );
 
   const changeCustomer = useCallback(
-    (customerID: CustomerID) => {
+    (customerID: string) => {
       dispatch(customerChanged(customerID));
     },
     [dispatch]

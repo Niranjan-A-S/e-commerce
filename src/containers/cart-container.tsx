@@ -14,7 +14,6 @@ export const Cart = () => {
 
   const {
     customer: { customerList, selectedCustomer },
-    products,
   } = useAppSelector((state) => state);
 
   const totalPrice = useMemo(
@@ -28,28 +27,30 @@ export const Cart = () => {
 
   const quantityIncreased = useCallback(
     (productID: string) => {
-      dispatch(itemUpdatedInCart({ productID, event: true }));
+      dispatch(itemUpdatedInCart({ productID, event: true, selectedCustomer }));
       dispatch(productStockUpdated({ productID, event: false }));
     },
-    [dispatch]
-  );
-
-  const removeItem = useCallback(
-    (productID: string) => {
-      dispatch(itemRemovedFromCart(productID));
-      dispatch(productStockRestored(productID));
-    },
-    [dispatch]
+    [dispatch, selectedCustomer]
   );
 
   const quantityDecreased = useCallback(
     (productID: string) => {
-      dispatch(itemUpdatedInCart({ productID, event: false }));
+      dispatch(
+        itemUpdatedInCart({ productID, event: false, selectedCustomer })
+      );
       dispatch(productStockUpdated({ productID, event: true }));
-      products[productID].stockLeft === products[productID].stock - 1 &&
-        removeItem(productID);
+      customerList[selectedCustomer].cart.some((item) => item.quantity === 1) &&
+        dispatch(itemRemovedFromCart({ productID, selectedCustomer }));
     },
-    [dispatch, products, removeItem]
+    [customerList, dispatch, selectedCustomer]
+  );
+
+  const removeItem = useCallback(
+    (productID: string, quantity: number) => {
+      dispatch(itemRemovedFromCart({ productID, selectedCustomer }));
+      dispatch(productStockRestored({ productID, quantity }));
+    },
+    [dispatch, selectedCustomer]
   );
 
   return (

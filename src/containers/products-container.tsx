@@ -10,22 +10,25 @@ import { ICartItem } from "../types";
 export const ProductsList = () => {
   const dispatch = useAppDispatch();
 
-  const { products } = useAppSelector((state) => state);
+  const {
+    products,
+    customer: { selectedCustomer },
+  } = useAppSelector((state) => state);
 
   const toggleItemToWishList = useCallback(
     (productID: string) => {
-      dispatch(itemToggledToWishList(productID));
+      dispatch(itemToggledToWishList({ productID, selectedCustomer }));
     },
-    [dispatch]
+    [dispatch, selectedCustomer]
   );
 
   const addToCart = useCallback(
     (cartItem: ICartItem) => {
       const { productID } = cartItem;
-      dispatch(itemAddedToCart(cartItem));
+      dispatch(itemAddedToCart({ cartItem, selectedCustomer }));
       dispatch(productStockUpdated({ productID, event: false }));
     },
-    [dispatch]
+    [dispatch, selectedCustomer]
   );
 
   return (

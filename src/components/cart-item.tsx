@@ -8,7 +8,7 @@ interface ICartItemProps {
   cartItem: ICartItem;
   quantityDecreased(productID: string): void;
   quantityIncreased(productID: string): void;
-  removeItem(productID: string): void;
+  removeItem(productID: string, quantity: number): void;
 }
 
 export const CartItem = memo((props: ICartItemProps) => {
@@ -32,7 +32,7 @@ export const CartItem = memo((props: ICartItemProps) => {
           decrementCount={() => quantityDecreased(productID)}
           productID={productID}
         />
-        <DeleteButton onClick={() => removeItem(productID)}>
+        <DeleteButton onClick={() => removeItem(productID, quantity)}>
           Remove from Cart
         </DeleteButton>
         <ItemPrice>

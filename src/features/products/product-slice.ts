@@ -1,4 +1,4 @@
-import { IItemUpdate } from "./../../types/types";
+import { IItemUpdate, IPayloadProduct } from "./../../types/types";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 import data from "../../data.json";
@@ -15,8 +15,9 @@ const productSlice = createSlice({
         ? state[action.payload.productID].stockLeft + 1
         : state[action.payload.productID].stockLeft - 1;
     },
-    productStockRestored: (state, action: PayloadAction<string>) => {
-      state[action.payload].stockLeft = state[action.payload].stock;
+    productStockRestored: (state, action: PayloadAction<IPayloadProduct>) => {
+      state[action.payload.productID].stockLeft =
+        state[action.payload.productID].stockLeft + action.payload.quantity;
     },
   },
 });

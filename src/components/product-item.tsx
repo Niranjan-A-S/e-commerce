@@ -8,16 +8,14 @@ import { useAppSelector } from "../app";
 interface IProductItemProps {
   productItem: IProductItem;
   productID: string;
-  toggleItemToWishList(productID: string): void;
+  toggleItemToWishList(productID: string): void; //change name
   addToCart(cartItem: ICartItem): void;
 }
 
 export const ProductItem = memo((props: IProductItemProps) => {
-  const {
-    customerList: {
-      c11: { wishlist },
-    },
-  } = useAppSelector((state) => state.customer);
+  const { customerList, selectedCustomer } = useAppSelector(
+    (state) => state.customer
+  );
 
   const {
     productItem: { description, image, name, price, stockLeft },
@@ -28,9 +26,9 @@ export const ProductItem = memo((props: IProductItemProps) => {
 
   const itemInWishList = useCallback(
     (productID: string) => {
-      return wishlist.includes(productID);
+      return customerList[selectedCustomer].wishlist.includes(productID);
     },
-    [wishlist]
+    [customerList, selectedCustomer]
   );
 
   return (
