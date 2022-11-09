@@ -4,6 +4,7 @@ import styled from "styled-components";
 import { ICartItem, IProductItem } from "../types";
 import { ImageSources } from "../enums";
 import { useAppSelector } from "../app";
+import { useNavigate } from "react-router";
 
 interface IProductItemProps {
   productItem: IProductItem;
@@ -24,6 +25,8 @@ export const ProductItem = memo((props: IProductItemProps) => {
     addToCart,
   } = props;
 
+  const navigate = useNavigate();
+
   const itemInWishList = useCallback(
     (productID: string) => {
       return customerList[selectedCustomer].wishlist.includes(productID);
@@ -33,7 +36,7 @@ export const ProductItem = memo((props: IProductItemProps) => {
 
   return (
     <ProductItemWrapper>
-      <ProductImage src={image} />
+      <ProductImage src={image} onClick={() => navigate(`item/${productID}`)} />
       <ProductName children={name} />
       <ProductDescription children={description} />
       <ProductInfo>
@@ -74,6 +77,7 @@ const ProductItemWrapper = styled.div`
   padding: 10px;
   display: grid;
   grid-row-gap: 5px;
+  cursor: pointer;
 `;
 
 const ProductInfo = styled.div`
