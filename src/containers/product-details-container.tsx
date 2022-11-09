@@ -13,10 +13,14 @@ export const ProductDetails = () => {
           ID === productID && (
             <>
               <ProductImage src={product.image} />
-              <ProductText children={product.name} />
-              <ProductText children={`Rs.${product.price}`} />
-              <ProductText children={product.description} />
-              <ProductText children={`${product.stockLeft} left`} />
+              <ProductName children={product.name} />
+              <ProductDescription>{product.description}</ProductDescription>
+              <ProductPrice>
+                Rs. <strong>{product.price}</strong>
+              </ProductPrice>
+              <ProductStock>
+                <strong>{product.stockLeft}</strong> left
+              </ProductStock>
             </>
           )
       )}
@@ -25,24 +29,36 @@ export const ProductDetails = () => {
 };
 
 const ProductDetailsWrapper = styled.div`
-  width: 600px;
-  height: fit-content;
-  margin: 0 auto;
-  border: 0.2px solid #000;
-  padding: 10px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-evenly;
-  gap: 5px;
+  margin: 150px auto;
+  border: 1px solid rgba(0, 0, 0, 0.4);
+  border-radius: 10px;
+  padding: 50px;
+  width: 500px;
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  display: grid;
+  grid-row-gap: 10px;
+  grid-column-gap: 20px;
+  grid-template-columns: repeat(2, 1fr);
 `;
 
 const ProductImage = styled.img`
-  width: 100%;
-  justify-self: center;
+  width: 300px;
+  height: 300px;
+  grid-row: span 4;
 `;
 
-const ProductText = styled.span`
+const ProductName = styled.span`
+  font-size: 30px;
+  max-height: 90px;
+  font-weight: bold;
+`;
+const ProductDescription = styled.span`
   font-size: 20px;
-  font-weight: bolder;
+`;
+const ProductPrice = styled.span`
+  font-size: 20px;
+`;
+const ProductStock = styled.span`
+  font-size: 20px;
+  color: red;
 `;
