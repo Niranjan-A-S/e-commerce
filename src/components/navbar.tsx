@@ -25,59 +25,34 @@ export const Navbar = memo((props: INavbar) => {
 
   return (
     <NavbarWrapper>
-      <Brand>
-        <Logo src={ImageSources.BRAND} />
-        <BrandName>CyberPunk</BrandName>
-      </Brand>
-      <Customer>
-        <Logo src={ImageSources.PROFILE} />
-        <SelectCustomer
-          onChange={(event) => changeCustomer(event.target.value)}
-        >
-          {customerProfiles.map((customer) => (
-            <option key={customer.customerID} value={customer.customerID}>
-              {customer.name}
-            </option>
-          ))}
-        </SelectCustomer>
-      </Customer>
-      <Tools>
-        <NavbarButton onClick={showWishList}>
-          <Logo src={ImageSources.WISHLIST} />
-          <ItemsCount>{wishListItemsCount}</ItemsCount>
-        </NavbarButton>
-        <NavbarButton onClick={showCart}>
-          <Logo src={ImageSources.CART} />
-          <ItemsCount>{cartItemsCount}</ItemsCount>
-        </NavbarButton>
+      <Logo src={ImageSources.BRAND} />
+      <BrandName>CyberPunk</BrandName>
+      <SelectCustomer onChange={(event) => changeCustomer(event.target.value)}>
+        {customerProfiles.map((customer) => (
+          <option key={customer.customerID} value={customer.customerID}>
+            {customer.name}
+          </option>
+        ))}
+      </SelectCustomer>
+      <Tools onClick={showWishList}>
+        <Logo src={ImageSources.WISHLIST} />
+        <ItemsCount>{wishListItemsCount}</ItemsCount>
+      </Tools>
+      <Tools onClick={showCart}>
+        <Logo src={ImageSources.CART} />
+        <ItemsCount>{cartItemsCount}</ItemsCount>
       </Tools>
     </NavbarWrapper>
   );
 });
 
 const NavbarWrapper = styled.div`
-  display: grid;
-  grid-template-columns: 7fr 1fr 1fr;
-  grid-gap: 10px;
+  display: flex;
+  gap: 10px;
   border-bottom: 1px solid rgba(0, 0, 0, 0.2);
   padding: 5px 100px;
   padding-bottom: 0;
   background: #fff;
-`;
-
-const Brand = styled.div`
-  display: flex;
-  gap: 20px;
-`;
-
-const Customer = styled.div`
-  display: flex;
-  gap: 10px;
-`;
-
-const Tools = styled.div`
-  display: flex;
-  gap: 10px;
 `;
 
 const Logo = styled.img`
@@ -86,26 +61,40 @@ const Logo = styled.img`
 `;
 
 const BrandName = styled.strong`
-  height: fit-content;
-  width: fit-content;
   align-self: center;
   font-size: larger;
+  flex-grow: 4;
 `;
 
 const SelectCustomer = styled.select`
+  -webkit-appearance: none;
+  width: fit-content;
   height: fit-content;
   align-self: center;
-  padding: 5px 0;
-  font-size: 17px;
+  padding: 5px 10px;
+  font-size: 20px;
+  text-transform: uppercase;
+  font-weight: bolder;
+  cursor: pointer;
   border: none;
-  & :-ms-expand {
-    display: none;
+  &:hover {
+    animation: popup 0.5s;
+    resize: 10px;
+  }
+  @keyframes popup {
+    0% {
+      padding: 0px;
+    }
+
+    100% {
+      resize: 10px;
+    }
   }
 `;
 
-const NavbarButton = styled.button`
-  width: fit-content;
+const Tools = styled.button`
   background-color: inherit;
+  width: fit-content;
   border: none;
 `;
 

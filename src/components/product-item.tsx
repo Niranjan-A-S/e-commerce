@@ -80,16 +80,6 @@ const ProductItemWrapper = styled.div`
   cursor: pointer;
 `;
 
-const ProductInfo = styled.div`
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-`;
-const ProductTools = styled.div`
-  display: grid;
-  grid-template-columns: 1fr 0.2fr;
-  grid-gap: 10px;
-`;
-
 const ProductImage = styled.img`
   width: 100%;
   height: 270px;
@@ -106,12 +96,21 @@ const ProductDescription = styled.span`
   height: 45px;
   text-overflow: ellipsis;
   overflow: hidden;
-  word-wrap: break-word;
   align-self: center;
 `;
 
 const ProductStock = styled.span`
   justify-self: end;
+`;
+
+const ProductInfo = styled.div`
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+`;
+const ProductTools = styled.div`
+  display: grid;
+  grid-template-columns: 1fr 0.2fr;
+  grid-gap: 10px;
 `;
 
 const ProductButton = styled.button`
