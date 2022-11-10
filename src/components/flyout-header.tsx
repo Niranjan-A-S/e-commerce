@@ -1,3 +1,4 @@
+import { memo } from "react";
 import { useNavigate } from "react-router";
 import styled from "styled-components";
 
@@ -7,7 +8,7 @@ interface IFlyoutHeader {
   flyoutName: string;
 }
 
-export const FlyoutHeader = (props: IFlyoutHeader) => {
+export const FlyoutHeader = memo((props: IFlyoutHeader) => {
   const { flyoutName } = props;
 
   const navigate = useNavigate();
@@ -20,7 +21,7 @@ export const FlyoutHeader = (props: IFlyoutHeader) => {
       <Title>{flyoutName}</Title>
     </HeaderWrapper>
   );
-};
+});
 
 const ExitButton = styled.button`
   background-color: #fff;

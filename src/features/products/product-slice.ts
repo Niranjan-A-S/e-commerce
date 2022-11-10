@@ -11,13 +11,17 @@ const productSlice = createSlice({
   initialState,
   reducers: {
     productStockUpdated: (state, action: PayloadAction<IItemUpdate>) => {
-      state[action.payload.productID].stockLeft = action.payload.event
-        ? state[action.payload.productID].stockLeft + 1
-        : state[action.payload.productID].stockLeft - 1;
+      const { event, productID } = action.payload;
+
+      state[productID].stockLeft = event
+        ? state[productID].stockLeft + 1
+        : state[productID].stockLeft - 1;
     },
+
     productStockRestored: (state, action: PayloadAction<IPayloadProduct>) => {
-      state[action.payload.productID].stockLeft =
-        state[action.payload.productID].stockLeft + action.payload.quantity;
+      const { productID, quantity } = action.payload;
+
+      state[productID].stockLeft = state[productID].stockLeft + quantity;
     },
   },
 });
