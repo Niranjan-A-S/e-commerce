@@ -67,9 +67,11 @@ export const Cart = () => {
           /> //Look for an alternative approach
         ))}
       </CartItemsWrapper>
-      <TotalPrice>
-        Total Price: <strong>Rs.{totalPrice}</strong>
-      </TotalPrice>
+      {totalPrice ? (
+        <TotalPrice>
+          Total Price: <strong>Rs.{totalPrice}</strong>
+        </TotalPrice>
+      ) : null}
     </CartWrapper>
   );
 };
