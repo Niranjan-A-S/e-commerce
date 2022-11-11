@@ -1,4 +1,3 @@
-export * from "./navbar";
 export * from "./product-item";
 export * from "./flyout";
 export * from "./wishlist-item";

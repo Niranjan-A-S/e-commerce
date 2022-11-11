@@ -1,10 +1,10 @@
 import { useCallback } from "react";
 import styled from "styled-components";
 
-import { useAppDispatch, useAppSelector } from "../app";
 import { ProductItem } from "../components";
 import { itemAddedToCart, itemToggledToWishList } from "../features/customer";
 import { productStockUpdated } from "../features/products";
+import { useAppDispatch, useAppSelector } from "../redux";
 import { ICartItem } from "../types";
 
 export const ProductsList = () => {
@@ -46,9 +46,10 @@ export const ProductsList = () => {
   );
 };
 
-const ProductsListWrapper = styled.div`
+const ProductsListWrapper = styled.main`
   padding: 50px 100px;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
+  grid-auto-rows: minmax(200px);
   gap: 30px;
 `;

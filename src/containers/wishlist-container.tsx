@@ -1,9 +1,9 @@
 import { useCallback } from "react";
 import styled from "styled-components";
 
-import { useAppDispatch, useAppSelector } from "../app";
 import { FlyoutHeader, WishListItem } from "../components";
 import { itemToggledToWishList } from "../features/customer";
+import { useAppDispatch, useAppSelector } from "../redux";
 
 export const WishList = () => {
   const dispatch = useAppDispatch();

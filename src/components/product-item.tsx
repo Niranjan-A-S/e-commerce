@@ -1,10 +1,10 @@
-import { memo, useCallback } from "react";
+import { memo } from "react";
 import styled from "styled-components";
 
 import { ICartItem, IProductItem } from "../types";
-import { ImageSources } from "../enums";
-import { useAppSelector } from "../app";
 import { useNavigate } from "react-router";
+import { WISHLIST, WISHLIST_RED } from "../enums";
+import { useAppSelector } from "../redux";
 
 interface IProductItemProps {
   productItem: IProductItem;
@@ -14,9 +14,14 @@ interface IProductItemProps {
 }
 
 export const ProductItem = memo((props: IProductItemProps) => {
-  const { customerList, selectedCustomer } = useAppSelector(
-    (state) => state.customer
-  );
+  const navigate = useNavigate();
+
+  const {
+    customer: { customerList, selectedCustomer },
+    products,
+  } = useAppSelector((state) => state);
+
+  const { wishlist } = customerList[selectedCustomer];
 
   const {
     productItem: { description, image, name, price, stockLeft },
@@ -24,15 +29,6 @@ export const ProductItem = memo((props: IProductItemProps) => {
     toggleItemToWishList,
     addToCart,
   } = props;
-
-  const navigate = useNavigate();
-
-  const itemInWishList = useCallback(
-    (productID: string) => {
-      return customerList[selectedCustomer].wishlist.includes(productID);
-    },
-    [customerList, selectedCustomer]
-  );
 
   return (
     <ProductItemWrapper>
@@ -46,54 +42,57 @@ export const ProductItem = memo((props: IProductItemProps) => {
         </ProductStock>
       </ProductInfo>
       <ProductTools>
-        <ProductButton
+        <AddToCartButton
           disabled={!stockLeft ? true : false}
-          children={stockLeft ? "Add to Cart" : "Out of Stock"}
           onClick={() =>
             addToCart({ name, image, price, quantity: 1, productID })
           }
-        />
-        <ProductButton
+        >
+          {stockLeft
+            ? stockLeft === products[productID].stock
+              ? "Add to Cart"
+              : "Add more to Cart"
+            : "Out of Stock"}
+        </AddToCartButton>
+        <WishListButton
           onClick={() => {
             toggleItemToWishList(productID);
           }}
         >
           <WishListIcon
-            src={
-              itemInWishList(productID)
-                ? ImageSources.WISHLIST_RED
-                : ImageSources.WISHLIST
-            }
+            src={wishlist.includes(productID) ? WISHLIST_RED : WISHLIST}
           />
-        </ProductButton>
+        </WishListButton>
       </ProductTools>
     </ProductItemWrapper>
   );
 });
 
 const ProductItemWrapper = styled.div`
-  border: 1px solid rgba(0, 0, 0, 0.2);
-  background-color: #fff;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
   padding: 10px;
-  display: grid;
-  grid-row-gap: 5px;
   cursor: pointer;
+  height: 400px;
+  width: 300px;
+  display: grid;
 `;
 
 const ProductImage = styled.img`
   width: 100%;
-  height: 270px;
-  justify-self: center;
+  height: 250px;
   border: none;
 `;
 
 const ProductName = styled.span`
   justify-self: center;
   font-weight: bolder;
+  color: #3c4048;
+  font-size: large;
 `;
 
 const ProductDescription = styled.span`
-  height: 45px;
+  max-height: 25px;
   text-overflow: ellipsis;
   overflow: hidden;
   align-self: center;
@@ -104,22 +103,30 @@ const ProductStock = styled.span`
 `;
 
 const ProductInfo = styled.div`
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-`;
-const ProductTools = styled.div`
-  display: grid;
-  grid-template-columns: 1fr 0.2fr;
-  grid-gap: 10px;
+  display: flex;
+  justify-content: space-between;
 `;
 
-const ProductButton = styled.button`
-  border: 1px solid rgba(0, 0, 0, 0.2);
+const ProductTools = styled.div`
+  display: flex;
+  justify-content: space-between;
+  gap: 5px;
+`;
+
+const WishListButton = styled.button`
+  border: none;
   background-color: #fff;
-  padding: 5px 0;
+  padding: 0 5px;
+  border: 1px solid rgba(0, 0, 0, 0.3);
 `;
 
 const WishListIcon = styled.img`
-  height: 20px;
-  width: 20px;
+  height: 25px;
+  width: 25px;
+`;
+
+const AddToCartButton = styled(WishListButton)`
+  flex-grow: 2;
+  font-size: 15px;
+  font-weight: bold;
 `;

@@ -1,13 +1,13 @@
 import { useCallback, useMemo } from "react";
 import styled from "styled-components";
 
-import { useAppDispatch, useAppSelector } from "../app";
 import { CartItem, FlyoutHeader } from "../components";
 import { itemRemovedFromCart, itemUpdatedInCart } from "../features/customer";
 import {
   productStockRestored,
   productStockUpdated,
 } from "../features/products";
+import { useAppDispatch, useAppSelector } from "../redux";
 
 export const Cart = () => {
   const dispatch = useAppDispatch();

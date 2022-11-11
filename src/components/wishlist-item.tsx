@@ -1,6 +1,6 @@
 import { memo } from "react";
 import styled from "styled-components";
-import { ImageSources } from "../enums";
+import { DELETE_BUTTON } from "../enums";
 import { IWishListItem } from "../types";
 
 interface IWishListItemProps {
@@ -19,7 +19,7 @@ export const WishListItem = memo((props: IWishListItemProps) => {
       <ItemName>{name}</ItemName>
       {!stockLeft && <ItemStatus>Currently Unavailable</ItemStatus>}
       <DeleteButton onClick={() => removeItem(productID)}>
-        <TrashImage src={ImageSources.DELETE_BUTTON} />
+        <TrashImage src={DELETE_BUTTON} />
       </DeleteButton>
     </WishListItemWrapper>
   );

@@ -1,12 +1,14 @@
-import { store } from "../app/store";
 import { Provider } from "react-redux";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 
-import { HomePage, ProductDetailsPage } from "../pages";
-import { Cart, WishList } from "../containers";
-import { Flyout } from "../components";
+import { Flyout } from "./components";
+import { WishList, Cart } from "./containers";
+import { HomePage, ProductDetailsPage } from "./pages";
+import { store } from "./redux";
 
-export const Paths = () => {
+
+
+export const App = () => {
   return (
     <Provider store={store}>
       <BrowserRouter>

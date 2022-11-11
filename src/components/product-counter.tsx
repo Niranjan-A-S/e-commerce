@@ -1,6 +1,6 @@
 import { memo, MouseEventHandler } from "react";
 import styled from "styled-components";
-import { useAppSelector } from "../app";
+import { useAppSelector } from "../redux";
 
 interface IProductCounter {
   count: number;

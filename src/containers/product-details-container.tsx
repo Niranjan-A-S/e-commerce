@@ -1,10 +1,11 @@
 import { useParams } from "react-router";
 import styled from "styled-components";
-import { useAppSelector } from "../app";
+import { useAppSelector } from "../redux";
 
 export const ProductDetails = () => {
-  const { productID } = useParams();
   const { products } = useAppSelector((state) => state);
+
+  const { productID } = useParams();
 
   return (
     <ProductDetailsWrapper>

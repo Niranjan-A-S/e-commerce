@@ -1,8 +1,7 @@
 import { memo } from "react";
 import { useNavigate } from "react-router";
 import styled from "styled-components";
-
-import { ImageSources } from "../enums";
+import { BACK_BUTTON } from "../enums";
 
 interface IFlyoutHeader {
   flyoutName: string;
@@ -16,7 +15,7 @@ export const FlyoutHeader = memo((props: IFlyoutHeader) => {
   return (
     <HeaderWrapper>
       <ExitButton onClick={() => navigate(-1)}>
-        <ButtonImage src={ImageSources.BACK_BUTTON} />
+        <ButtonImage src={BACK_BUTTON} />
       </ExitButton>
       <Title>{flyoutName}</Title>
     </HeaderWrapper>
