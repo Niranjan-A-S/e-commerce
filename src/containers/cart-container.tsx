@@ -16,6 +16,8 @@ export const Cart = () => {
     customer: { customerList, selectedCustomer },
   } = useAppSelector((state) => state);
 
+  const { cart } = customerList[selectedCustomer];
+
   const totalPrice = useMemo(
     () =>
       customerList[selectedCustomer].cart.reduce(
@@ -39,10 +41,10 @@ export const Cart = () => {
         itemUpdatedInCart({ productID, event: false, selectedCustomer })
       );
       dispatch(productStockUpdated({ productID, event: true }));
-      customerList[selectedCustomer].cart.some((item) => item.quantity === 1) &&
+      cart.some((item) => item.quantity === 1) &&
         dispatch(itemRemovedFromCart({ productID, selectedCustomer }));
     },
-    [customerList, dispatch, selectedCustomer]
+    [cart, dispatch, selectedCustomer]
   );
 
   const removeItem = useCallback(
@@ -57,7 +59,7 @@ export const Cart = () => {
     <CartWrapper>
       <FlyoutHeader flyoutName={"Cart"} />
       <CartItemsWrapper>
-        {customerList[selectedCustomer].cart.map((cartItem) => (
+        {cart.map((cartItem) => (
           <CartItem
             key={cartItem.productID}
             cartItem={cartItem}

@@ -38,12 +38,11 @@ export const customerSlice = createSlice({
 
     itemToggledToWishList: (customer, action: PayloadAction<IPayloadItem>) => {
       const { productID, selectedCustomer } = action.payload;
+      const currentCustomer = customer.customerList[selectedCustomer];
 
-      customer.customerList[selectedCustomer].wishlist = !customer.customerList[
-        selectedCustomer
-      ].wishlist.includes(productID)
-        ? [...customer.customerList[selectedCustomer].wishlist, productID]
-        : customer.customerList[selectedCustomer].wishlist.filter(
+      currentCustomer.wishlist = !currentCustomer.wishlist.includes(productID)
+        ? [...currentCustomer.wishlist, productID]
+        : currentCustomer.wishlist.filter(
             (productId) => productId !== productID
           );
     },
@@ -51,11 +50,13 @@ export const customerSlice = createSlice({
     itemAddedToCart: (customer, action: PayloadAction<IPayloadCartItem>) => {
       const { cartItem, selectedCustomer } = action.payload;
 
-      customer.customerList[selectedCustomer].cart = !customer.customerList[
-        selectedCustomer
-      ].cart.some((item) => item.productID === cartItem.productID)
-        ? [...customer.customerList[selectedCustomer].cart, cartItem]
-        : customer.customerList[selectedCustomer].cart.map((item) =>
+      const currentCustomer = customer.customerList[selectedCustomer];
+
+      currentCustomer.cart = !currentCustomer.cart.some(
+        (item) => item.productID === cartItem.productID
+      )
+        ? [...currentCustomer.cart, cartItem]
+        : currentCustomer.cart.map((item) =>
             item.productID === cartItem.productID
               ? { ...item, quantity: item.quantity + 1 }
               : item
@@ -65,17 +66,19 @@ export const customerSlice = createSlice({
     itemRemovedFromCart: (customer, action: PayloadAction<IPayloadItem>) => {
       const { productID, selectedCustomer } = action.payload;
 
-      customer.customerList[selectedCustomer].cart = customer.customerList[
-        selectedCustomer
-      ].cart.filter((item) => item.productID !== productID);
+      const currentCustomer = customer.customerList[selectedCustomer];
+
+      currentCustomer.cart = currentCustomer.cart.filter(
+        (item) => item.productID !== productID
+      );
     },
 
     itemUpdatedInCart: (customer, action: PayloadAction<ICartItemUpdate>) => {
       const { productID, selectedCustomer, event } = action.payload;
 
-      customer.customerList[selectedCustomer].cart = customer.customerList[
-        selectedCustomer
-      ].cart.map((item) =>
+      const currentCustomer = customer.customerList[selectedCustomer];
+
+      currentCustomer.cart = currentCustomer.cart.map((item) =>
         item.productID === productID
           ? event
             ? { ...item, quantity: item.quantity + 1 }

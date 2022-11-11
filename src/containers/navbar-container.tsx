@@ -70,8 +70,11 @@ const NavbarWrapper = styled.nav`
   border-bottom: 1px solid rgba(0, 0, 0, 0.2);
   padding: 5px 100px;
   padding-bottom: 0;
-  position: relative;
-  height: 50px;
+  display: grid;
+  grid-template-columns: 10fr 1.6fr 0.7fr 0.7fr;
+  @media screen and (max-width: 1100px) {
+    grid-template-columns: 10fr 6fr 2.9fr 2.9fr;
+  }
 `;
 
 const Logo = styled.img`
@@ -80,17 +83,13 @@ const Logo = styled.img`
 `;
 
 const SelectCustomer = styled.select`
-  -webkit-appearance: none;
   text-transform: uppercase;
   font-size: 20px;
   font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
   font-weight: 600;
   cursor: pointer;
   border: none;
-  position: absolute;
-  margin: 0;
-  top: 10px;
-  right: 250px;
+  flex-grow: 5;
   &:focus {
     outline: none;
     border: none;
@@ -107,5 +106,4 @@ const ItemsCount = styled.sup`
 
 const StyledNavLink = styled(NavLink)`
   text-decoration: none;
-  float: right;
 `;

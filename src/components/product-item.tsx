@@ -1,8 +1,8 @@
 import { memo } from "react";
+import { useNavigate } from "react-router";
 import styled from "styled-components";
 
 import { ICartItem, IProductItem } from "../types";
-import { useNavigate } from "react-router";
 import { WISHLIST, WISHLIST_RED } from "../enums";
 import { useAppSelector } from "../redux";
 
@@ -18,10 +18,7 @@ export const ProductItem = memo((props: IProductItemProps) => {
 
   const {
     customer: { customerList, selectedCustomer },
-    products,
   } = useAppSelector((state) => state);
-
-  const { wishlist } = customerList[selectedCustomer];
 
   const {
     productItem: { description, image, name, price, stockLeft },
@@ -48,11 +45,7 @@ export const ProductItem = memo((props: IProductItemProps) => {
             addToCart({ name, image, price, quantity: 1, productID })
           }
         >
-          {stockLeft
-            ? stockLeft === products[productID].stock
-              ? "Add to Cart"
-              : "Add more to Cart"
-            : "Out of Stock"}
+          {stockLeft ? "Add to Cart" : "Out of Stock"}
         </AddToCartButton>
         <WishListButton
           onClick={() => {
@@ -60,7 +53,11 @@ export const ProductItem = memo((props: IProductItemProps) => {
           }}
         >
           <WishListIcon
-            src={wishlist.includes(productID) ? WISHLIST_RED : WISHLIST}
+            src={
+              customerList[selectedCustomer].wishlist.includes(productID)
+                ? WISHLIST_RED
+                : WISHLIST
+            }
           />
         </WishListButton>
       </ProductTools>
@@ -71,16 +68,22 @@ export const ProductItem = memo((props: IProductItemProps) => {
 const ProductItemWrapper = styled.div`
   border: 1px solid rgba(0, 0, 0, 0.15);
   box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
-  padding: 10px;
   cursor: pointer;
-  height: 400px;
-  width: 300px;
   display: grid;
+  grid-gap: 5px;
+  padding: 5px;
+  @media screen and (max-width: 900px) {
+    font-size: 10px;
+    & > button {
+      color: red;
+    }
+  }
 `;
 
 const ProductImage = styled.img`
   width: 100%;
-  height: 250px;
+  aspect-ratio: 1/1;
+  /* object-fit: cover;  useful in some cases*/
   border: none;
 `;
 
@@ -127,6 +130,5 @@ const WishListIcon = styled.img`
 
 const AddToCartButton = styled(WishListButton)`
   flex-grow: 2;
-  font-size: 15px;
   font-weight: bold;
 `;
