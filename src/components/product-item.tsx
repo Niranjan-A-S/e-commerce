@@ -21,7 +21,7 @@ export const ProductItem = memo((props: IProductItemProps) => {
   } = useAppSelector((state) => state);
 
   const {
-    productItem: { description, image, name, price, stockLeft },
+    productItem: { image, name, price, stockLeft },
     productID,
     toggleItemToWishList,
     addToCart,
@@ -31,36 +31,29 @@ export const ProductItem = memo((props: IProductItemProps) => {
     <ProductItemWrapper>
       <ProductImage src={image} onClick={() => navigate(`item/${productID}`)} />
       <ProductName children={name} />
-      <ProductDescription children={description} />
-      <ProductInfo>
-        <strong>Rs.{price}</strong>
-        <ProductStock>
-          <strong>{stockLeft}</strong> left
-        </ProductStock>
-      </ProductInfo>
-      <ProductTools>
-        <AddToCartButton
-          disabled={!stockLeft ? true : false}
-          onClick={() =>
-            addToCart({ name, image, price, quantity: 1, productID })
+      <ProductPrice>${price}</ProductPrice>
+      <ProductStock>{stockLeft} left</ProductStock>
+      <AddToCartButton
+        disabled={!stockLeft ? true : false}
+        onClick={() =>
+          addToCart({ name, image, price, quantity: 1, productID })
+        }
+      >
+        {stockLeft ? "Add to Cart" : "Out of Stock"}
+      </AddToCartButton>
+      <WishListButton
+        onClick={() => {
+          toggleItemToWishList(productID);
+        }}
+      >
+        <WishListIcon
+          src={
+            customerList[selectedCustomer].wishlist.includes(productID)
+              ? WISHLIST_RED
+              : WISHLIST
           }
-        >
-          {stockLeft ? "Add to Cart" : "Out of Stock"}
-        </AddToCartButton>
-        <WishListButton
-          onClick={() => {
-            toggleItemToWishList(productID);
-          }}
-        >
-          <WishListIcon
-            src={
-              customerList[selectedCustomer].wishlist.includes(productID)
-                ? WISHLIST_RED
-                : WISHLIST
-            }
-          />
-        </WishListButton>
-      </ProductTools>
+        />
+      </WishListButton>
     </ProductItemWrapper>
   );
 });
@@ -69,66 +62,53 @@ const ProductItemWrapper = styled.div`
   border: 1px solid rgba(0, 0, 0, 0.15);
   box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
   cursor: pointer;
+  padding: 5px;
+  height: fit-content;
   display: grid;
   grid-gap: 5px;
-  padding: 5px;
-  @media screen and (max-width: 900px) {
-    font-size: 10px;
-    & > button {
-      color: red;
-    }
-  }
+  grid-template-columns: 4fr 1fr;
+  min-height: 400px;
 `;
 
 const ProductImage = styled.img`
   width: 100%;
-  aspect-ratio: 1/1;
-  /* object-fit: cover;  useful in some cases*/
+  aspect-ratio: 1/0.9;
   border: none;
+  grid-column: 1/3;
 `;
 
 const ProductName = styled.span`
-  justify-self: center;
   font-weight: bolder;
   color: #3c4048;
-  font-size: large;
+  font-size: 20px;
+  grid-column: 1/3;
 `;
 
-const ProductDescription = styled.span`
-  max-height: 25px;
-  text-overflow: ellipsis;
-  overflow: hidden;
-  align-self: center;
+const ProductPrice = styled.span`
+  font-size: 20px;
+  font-weight: bold;
+  color: #b2b2b2;
 `;
 
 const ProductStock = styled.span`
-  justify-self: end;
-`;
-
-const ProductInfo = styled.div`
-  display: flex;
-  justify-content: space-between;
-`;
-
-const ProductTools = styled.div`
-  display: flex;
-  justify-content: space-between;
-  gap: 5px;
+  font-size: 15px;
+  text-align: center;
 `;
 
 const WishListButton = styled.button`
-  border: none;
   background-color: #fff;
-  padding: 0 5px;
   border: 1px solid rgba(0, 0, 0, 0.3);
+  padding: 2px 0;
 `;
 
 const WishListIcon = styled.img`
-  height: 25px;
   width: 25px;
+  aspect-ratio: 1/1;
 `;
 
-const AddToCartButton = styled(WishListButton)`
-  flex-grow: 2;
+const AddToCartButton = styled.button`
   font-weight: bold;
+  border: 1px solid rgba(0, 0, 0, 0.3);
+  background-color: #fff;
+  font-size: 17px;
 `;
