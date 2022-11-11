@@ -10,9 +10,9 @@ export const GlobalStyles = createGlobalStyle`
 
  body {
     font-family: Whitney, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-    position: relative;
-    height: 100%;
- }
+    margin: 0;
+    padding: 0;
+   }
 
  button {
     cursor: pointer;

@@ -40,6 +40,7 @@ const ProductDetailsWrapper = styled.div`
   grid-row-gap: 10px;
   grid-column-gap: 20px;
   grid-template-columns: repeat(2, 1fr);
+  overflow: auto;
 `;
 
 const ProductImage = styled.img`

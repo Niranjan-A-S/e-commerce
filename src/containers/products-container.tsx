@@ -47,16 +47,10 @@ export const ProductsList = () => {
 };
 
 const ProductsListWrapper = styled.main`
-  padding: 50px 100px;
-  height: fit-content;
-  width: fit-content;
+  padding: 100px 100px;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  grid-auto-rows: minmax(200px);
   gap: 30px;
-
-  overflow-y: scroll;
-
   /* @media screen and (min-width: 600px) {
     grid-template-columns: repeat(2, 1fr);
   } */

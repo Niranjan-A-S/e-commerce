@@ -67,14 +67,14 @@ export const Navbar = memo((props) => {
 });
 
 const NavbarWrapper = styled.nav`
+  background: #fff;
+  position: fixed;
   border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+  width: 100%;
   padding: 5px 100px;
-  padding-bottom: 0;
   display: grid;
-  grid-template-columns: 10fr 1.6fr 0.7fr 0.7fr;
-  @media screen and (max-width: 1100px) {
-    grid-template-columns: 10fr 6fr 2.9fr 2.9fr;
-  }
+  grid-column-gap: 5px;
+  grid-template-columns: auto 170px repeat(2, 65px);
 `;
 
 const Logo = styled.img`
@@ -89,7 +89,7 @@ const SelectCustomer = styled.select`
   font-weight: 600;
   cursor: pointer;
   border: none;
-  flex-grow: 5;
+  /* width: fit-content; */
   &:focus {
     outline: none;
     border: none;
@@ -106,4 +106,5 @@ const ItemsCount = styled.sup`
 
 const StyledNavLink = styled(NavLink)`
   text-decoration: none;
+  justify-self: end;
 `;
