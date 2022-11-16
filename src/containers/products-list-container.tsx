@@ -5,7 +5,7 @@ import { ProductItem } from "../components";
 import { itemAddedToCart, itemToggledToWishList } from "../features/customer";
 import { productStockUpdated } from "../features/products";
 import { useAppDispatch, useAppSelector } from "../redux";
-import { ICartItem } from "../types";
+import { ICartItem, Products } from "../types";
 
 export const ProductsList = () => {
   const dispatch = useAppDispatch();
@@ -13,6 +13,7 @@ export const ProductsList = () => {
   const {
     products,
     customer: { selectedCustomer },
+    filter: { sortValue },
   } = useAppSelector((state) => state);
 
   const toggleItemToWishList = useCallback(
@@ -31,9 +32,15 @@ export const ProductsList = () => {
     [dispatch, selectedCustomer]
   );
 
+  const sortProducts = useCallback(() => {
+    return Object.entries(products).sort(([, a], [, b]) =>
+      sortValue === "highToLow" ? b.price - a.price : a.price - b.price
+    );
+  }, [products, sortValue]);
+
   return (
     <ProductsListWrapper>
-      {Object.entries(products).map(([productID, productItem]) => (
+      {sortProducts().map(([productID, productItem]) => (
         <ProductItem
           key={productID}
           productID={productID}
@@ -48,10 +55,11 @@ export const ProductsList = () => {
 
 const ProductsListWrapper = styled.main`
   padding: 100px 100px;
+  padding-top: 50px;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 30px;
-  /* @media screen and (min-width: 600px) {
+  @media screen and (max-width: 800px) {
     grid-template-columns: repeat(2, 1fr);
-  } */
+  }
 `;

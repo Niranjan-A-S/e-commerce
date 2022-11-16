@@ -66,3 +66,8 @@ export interface IPayloadProduct {
   productID: string;
   quantity: number;
 }
+
+export interface IFilters {
+  sortValue: string;
+  view: string;
+}

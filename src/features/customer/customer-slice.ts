@@ -7,7 +7,7 @@ import {
 
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-export const initialState: ICustomers = {
+const initialState: ICustomers = {
   customerList: {
     c11: {
       name: "Customer A",

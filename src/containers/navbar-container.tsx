@@ -66,9 +66,8 @@ export const Navbar = memo((props) => {
   );
 });
 
-const NavbarWrapper = styled.nav`
+const NavbarWrapper = styled.div`
   background: #fff;
-  position: fixed;
   border-bottom: 1px solid rgba(0, 0, 0, 0.2);
   width: 100%;
   padding: 5px 100px;
@@ -89,7 +88,6 @@ const SelectCustomer = styled.select`
   font-weight: 600;
   cursor: pointer;
   border: none;
-  /* width: fit-content; */
   &:focus {
     outline: none;
     border: none;
