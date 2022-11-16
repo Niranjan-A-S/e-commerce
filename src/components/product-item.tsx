@@ -5,6 +5,7 @@ import styled from "styled-components";
 import { ICartItem, IProductItem } from "../types";
 import { WISHLIST, WISHLIST_RED } from "../enums";
 import { useAppSelector } from "../redux";
+import { productImage, productItem, productName } from "../styles";
 
 interface IProductItemProps {
   productItem: IProductItem;
@@ -18,6 +19,7 @@ export const ProductItem = memo((props: IProductItemProps) => {
 
   const {
     customer: { customerList, selectedCustomer },
+    filter: { view },
   } = useAppSelector((state) => state);
 
   const {
@@ -28,9 +30,13 @@ export const ProductItem = memo((props: IProductItemProps) => {
   } = props;
 
   return (
-    <ProductItemWrapper>
-      <ProductImage src={image} onClick={() => navigate(`item/${productID}`)} />
-      <ProductName children={name} />
+    <ProductItemWrapper style={view === "list" ? productItem : {}}>
+      <ProductImage
+        src={image}
+        onClick={() => navigate(`item/${productID}`)}
+        style={view === "list" ? productImage : {}}
+      />
+      <ProductName children={name} style={view === "list" ? productName : {}} />
       <ProductPrice>${price}</ProductPrice>
       <ProductStock>{stockLeft} left</ProductStock>
       <AddToCartButton
@@ -112,4 +118,5 @@ const AddToCartButton = styled.button`
   font-weight: bold;
   border: 1px solid rgba(0, 0, 0, 0.3);
   background-color: #fff;
+  padding: 8px;
 `;
