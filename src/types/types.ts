@@ -1,5 +1,3 @@
-import { ChangeEventHandler } from "react";
-
 export interface IProductsInitialState {
   products: Products;
 }
