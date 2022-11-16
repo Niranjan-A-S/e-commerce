@@ -25,8 +25,9 @@ export const GlobalStyles = createGlobalStyle`
 
 export const productItem = {
   width: "100%",
-  gridTemplateColumns: ".5fr 3fr 1fr 3fr  2fr .5fr",
+  gridTemplateColumns: ".5fr 4fr 1fr 3fr  2.5fr .5fr",
   alignItems: "center",
+  fontSize: "18px",
 };
 
 export const productList = {
@@ -34,7 +35,7 @@ export const productList = {
 };
 
 export const productImage = {
-  width: "50px",
+  width: "70px",
   justifySelf: "auto",
   aspectRatio: "1/1",
   gridColumn: "auto",
