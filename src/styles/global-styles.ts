@@ -16,5 +16,9 @@ export const GlobalStyles = createGlobalStyle`
 
  button {
     cursor: pointer;
+    :disabled{
+    cursor: not-allowed;
+    pointer-events: all !important;  
+   }
  }
 `;

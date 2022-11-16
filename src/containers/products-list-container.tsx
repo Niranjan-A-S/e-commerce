@@ -55,11 +55,16 @@ export const ProductsList = () => {
 
 const ProductsListWrapper = styled.main`
   padding: 100px 100px;
-  padding-top: 50px;
+  padding-top: 25px;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 30px;
-  @media screen and (max-width: 800px) {
+  gap: 20px;
+  font-size: 15px;
+  @media screen and (max-width: 1060px) {
     grid-template-columns: repeat(2, 1fr);
+  }
+  @media screen and (max-width: 620px) {
+    grid-template-columns: repeat(1, 1fr);
+    font-size: 12px;
   }
 `;

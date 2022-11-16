@@ -65,9 +65,12 @@ export const Toolbar = () => {
 const ToolbarWrapper = styled.div`
   display: grid;
   grid-template-columns: 1fr auto;
-  padding: 50px 100px;
+  padding: 100px;
   padding-bottom: 0;
   grid-gap: 10px;
+  @media screen and (max-width: 500px) {
+    padding: 100px 80px 0 80px;
+  }
 `;
 
 const Select = styled.select`

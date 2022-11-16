@@ -59,40 +59,42 @@ export const ProductItem = memo((props: IProductItemProps) => {
 });
 
 const ProductItemWrapper = styled.div`
-  border: 1px solid rgba(0, 0, 0, 0.15);
-  box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
-  cursor: pointer;
+  box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px 2.6px;
   padding: 5px;
-  height: fit-content;
   display: grid;
   grid-gap: 5px;
-  grid-template-columns: 4fr 1fr;
-  min-height: 400px;
+  grid-template-columns: 2fr 0.5fr;
 `;
 
 const ProductImage = styled.img`
+  justify-self: center;
   width: 100%;
   aspect-ratio: 1/0.9;
-  border: none;
   grid-column: 1/3;
+  cursor: pointer;
+  @media screen and (max-width: 1060px) {
+    width: 60%;
+  }
+  @media screen and (max-width: 620px) {
+    width: 40%;
+  }
 `;
 
 const ProductName = styled.span`
   font-weight: bolder;
   color: #3c4048;
-  font-size: 20px;
   grid-column: 1/3;
 `;
 
 const ProductPrice = styled.span`
-  font-size: 20px;
   font-weight: bold;
   color: #b2b2b2;
 `;
 
 const ProductStock = styled.span`
-  font-size: 15px;
   text-align: center;
+  font-weight: bold;
+  color: #b2b2b2;
 `;
 
 const WishListButton = styled.button`
@@ -110,5 +112,4 @@ const AddToCartButton = styled.button`
   font-weight: bold;
   border: 1px solid rgba(0, 0, 0, 0.3);
   background-color: #fff;
-  font-size: 17px;
 `;
